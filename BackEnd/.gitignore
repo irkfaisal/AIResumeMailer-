@@ -1,0 +1,53 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+
+# Environment variables
+.env
+
+# Build directories
+dist/
+build/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE or editor directories
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# System files
+*.swp
+*.swo
+
+# Coverage reports
+coverage/
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional typescript cache
+*.tsbuildinfo
+
+# Optional dependency directories
+.pnp/
+.pnp.js
+
+# Package-lock files (if you prefer to use yarn or other package managers)
+package-lock.json
