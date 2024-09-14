@@ -42,7 +42,7 @@ Will update this in future
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/mern-email-sender.git
+   git clone https://github.com/irkfaisal/AIResumeMailer-.git
    cd mern-email-sender
 cd backend
 npm install
