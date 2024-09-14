@@ -1,7 +1,5 @@
 import mongoose  from 'mongoose';
 
-// const DATABASE_URL = "mongodb+srv://irkfaisal:myresumeappProject@cluster0.7rcqr9a.mongodb.net/AIResumeMailer?retryWrites=true&w=majority&appName=Cluster0"
-
 const connectDB = async () => {
     try {
       // Connect to MongoDB
