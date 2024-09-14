@@ -30,6 +30,11 @@ This is a MERN (MongoDB, Express, React, Node.js) based application designed to 
 - **Authentication**: JWT
 - **External API**: ChatGPT
 
+## Project Documentation
+ -** Frontend: N.A
+ -** Backend: https://docs.google.com/document/d/1boCr8-ec15o3YXC16mCrKyaxcbRcl7-C7TZfXIS1R-M/edit?usp=sharing
+ -** Framewire: N/A
+
 ## Project Structure
 Will update this in future
 
