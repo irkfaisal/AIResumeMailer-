@@ -2,7 +2,10 @@ import express from "express";
 import dotenv from 'dotenv';
 import cors from "cors";
 import connectDB from './config/db.js';
-import authRoutes from './routes/authRoutes.js';  // You missed this import
+import authRoutes from './routes/authRoutes.js';
+import mailRoutes from "./routes/mailRoutes.js"
+
+console.log(process.cwd());
 
 // Load environment variables
 dotenv.config();
@@ -16,7 +19,8 @@ app.use(express.json());
 app.use(cors());
 
 // Define routes
-app.use('/api/auth', authRoutes);  // Use the auth routes
+app.use('/api/auth', authRoutes);
+app.use('/api', mailRoutes)
 
 
 // Error handling middleware (ensure this is after the routes)
