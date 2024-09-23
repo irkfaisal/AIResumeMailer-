@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -20,7 +21,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.2",
-    "nodemailer": "^6.9.15"
+    "nodemailer": "^6.9.15",
+    "openai": "^4.63.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

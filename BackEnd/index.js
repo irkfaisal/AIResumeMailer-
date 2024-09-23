@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import mailRoutes from "./routes/mailRoutes.js"
+import gptRoutes from "./routes/gptRoutes.js"
 
 console.log(process.cwd());
 
@@ -21,6 +22,7 @@ app.use(cors());
 // Define routes
 app.use('/api/auth', authRoutes);
 app.use('/api', mailRoutes)
+app.use('/ai', gptRoutes )
 
 
 // Error handling middleware (ensure this is after the routes)
