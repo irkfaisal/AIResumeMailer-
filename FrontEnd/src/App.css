@@ -1,25 +1,24 @@
 .gradient__bg {
-    /* For Firefox */
-    background: -moz-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
-    
-    /* For Safari 5.1+, Chrome 10+ */
-    background: -webkit-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
-    
-    /* For Opera 11.10+ */
-    background: -o-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
-    
-    /* For IE 10+ */
-    background: -ms-radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
-    
-    /* Standard syntax for modern browsers */
-    background: radial-gradient(circle at 3% 25%, rgba(0, 40, 83, 1) 0%, rgba(4, 12, 24, 1) 25%);
-  }
-  
-  .gradient__text {
-    /* Gradient for text */
-    background: -webkit-linear-gradient(45deg, #ffffff, #fdfdfd, #c9cfe9);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
+  /* Central radial gradient */
+  background: 
+    radial-gradient(circle at 10% 50%, rgba(0, 40, 83, 0.6), transparent 50%), /* Left side glow */
+    radial-gradient(circle at 90% 50%, rgba(0, 40, 83, 0.6), transparent 50%), /* Right side glow */
+    linear-gradient(360.81deg, #0b162e -43.27%, #090e23 -21.24%, #080c20 5%, #07081d 20%, #050618 35%, #040515 51.94%, #02030e 70%, #000000 100%); /* Central gradient */
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100wh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient__text {
+  background: -webkit-linear-gradient(45deg, #00c6ff, #0072ff, #0d1122);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+}
