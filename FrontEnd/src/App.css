@@ -1,24 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
 .gradient__bg {
-  /* Central radial gradient */
   background: 
-    radial-gradient(circle at 10% 50%, rgba(0, 40, 83, 0.6), transparent 50%), /* Left side glow */
-    radial-gradient(circle at 90% 50%, rgba(0, 40, 83, 0.6), transparent 50%), /* Right side glow */
-    linear-gradient(360.81deg, #0b162e -43.27%, #090e23 -21.24%, #080c20 5%, #07081d 20%, #050618 35%, #040515 51.94%, #02030e 70%, #000000 100%); /* Central gradient */
+    radial-gradient(circle at 10% 50%, rgba(0, 40, 83, 0.6), transparent 50%),
+    radial-gradient(circle at 90% 50%, rgba(0, 40, 83, 0.6), transparent 50%),
+    linear-gradient(360.81deg, #0b162e -43.27%, #090e23 -21.24%, #080c20 5%, #07081d 20%, #050618 35%, #040515 51.94%, #02030e 70%, #000000 100%);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
-  width: 100wh;
+}
+
+.heroBanner-content{
+  flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-right: 5rem;
 }
 
 .gradient__text {
-  background: -webkit-linear-gradient(45deg, #00c6ff, #0072ff, #0d1122);
+  background:  linear-gradient(89.97deg, #AE67FA 1.84%, #F49867 102.67%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 4rem;
   font-weight: bold;
   text-align: center;
+}
+
+.heroBanner-content h1{
+  font-family:'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 62px;
+  line-height: 75px;
+  letter-spacing: -0.04em;
+  
+}
+
+.heroBanner-content p {
+  font-family:'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: #81AFDD;
+  margin-top: 1.5rem;
 }
