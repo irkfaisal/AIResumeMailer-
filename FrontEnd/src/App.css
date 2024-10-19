@@ -24,14 +24,14 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 4rem;
-  font-weight: bold;
+  font-weight:bold;
   text-align: center;
 }
 
 .heroBanner-content h1{
   font-family:'Manrope', sans-serif;
   font-weight: 800;
-  font-size: 62px;
+  font-size: 3rem;
   line-height: 75px;
   letter-spacing: -0.04em;
   
@@ -40,8 +40,8 @@
 .heroBanner-content p {
   font-family:'Manrope', sans-serif;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.5rem;
   line-height: 28px;
-  color: #81AFDD;
+  color: #bef3f5;
   margin-top: 1.5rem;
 }

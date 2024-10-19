@@ -5,8 +5,8 @@ import LandingPage from './LandingPage/LandingPage';
 const Home = () => {
     return (
         <>
-            <div className={`gradient__bg w-screen min-h-screen overflow-hidden flex flex-col justify-start items-center`}>
-                <div className={`${styles.paddingX} ${styles.flexStart} ${styles.boxWidth}`}>
+            <div className={`gradient__bg w-screen min-h-screen overflow-hidden ${styles.flexCenter} flex-col`}>
+                <div className={`${styles.paddingX} ${styles.flexCenter} ${styles.boxWidth}`}>
                     <LandingPage />
                 </div>
             </div>

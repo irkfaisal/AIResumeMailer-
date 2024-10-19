@@ -2,12 +2,13 @@
 
 import { Navbar } from "../../../components"
 import styles from "../../../styles/styles"
+// import styles from "../../../styles/styles"
 import HeroBanner from "./HeroBanner/HeroBanner"
 
 const LandingPage = () => {
     return (
         <>
-            <section className={`w-full ${styles.flexCenter} flex-col`}>
+            <section className={`w-full h-screen ${styles.flexCenter} flex-col`}>
                 <Navbar />
                 <HeroBanner />
             </section>
