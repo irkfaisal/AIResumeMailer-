@@ -1,197 +1,94 @@
+import { useState } from 'react'
 import './ResumeForm.css'
+import { InputField, InputLabel } from '../../../components'
+import { toast } from 'sonner';
 
 const ResumeForm = () => {
+    const [userDeatils, setUserDetails] = useState({
+        name: '',
+        phone: '',
+        linkedin: '',
+        github: '',
+        portfolio: '',
+        jobPosition: '',
+        mailSubject: '',
+        company: '',
+        jobLink: '',
+        skills: '',
+        summary: '',
+        jobTitle: '',
+        employer: '',
+        experience: '',
+        resumeLink: ''
+    })
+
+    const handleChnage = (e) => {
+        const { name, value } = e.target;
+        setUserDetails((prevData) => ({
+            ...prevData,
+            [name]: value
+        }))
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        const { name, phone, linkedin, github, jobPosition, mailSubject, company, skills, summary, jobTitle, employer, experience, resumeLink } = userDeatils
+        if (!name.trim() || !phone || !linkedin.trim() || !github.trim() || !jobPosition.trim() || !mailSubject.trim() || !company.trim() || !skills.trim() || !summary.trim() || !jobTitle.trim() || !employer.trim() || !experience || !resumeLink.trim()) {
+            toast.error("Please fill out all required fields.");
+            return;
+        }
+    }
+
     return (
         <>
-            <section className={`glass-effect resumeFormSection`}>
+            <form onSubmit={(e) => handleFormSubmit(e)} className={`glass-effect resumeFormSection`}>
                 <p>Fill details to generate custom Ai promt</p>
                 <div className="w-1/2 border-t border-gray-300"></div>
                 <div className='resumeFormFields'>
                     {/* Basic User Information */}
                     <div className='FormField p-4'>
-                        <label htmlFor="text" className="mb-2 text-base text-center font-medium text-white">
-                            Basic User Information
-                        </label>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Full Name
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                placeholder="Enter Name (ex: John Doe)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="number" className="mb-2 text-base font-medium text-white">
-                                Phone
-                            </label>
-                            <input
-                                type="number"
-                                id="phone"
-                                placeholder="Enter Phone no (ex: +1234567890)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                LinkedIn
-                            </label>
-                            <input
-                                type="text"
-                                id="linkedin"
-                                placeholder="Enter LinkedIn (ex: https://www.linkedin.com/in/johndoe/)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Github
-                            </label>
-                            <input
-                                type="text"
-                                id="github"
-                                placeholder="Enter Github (ex: https://www.github/johndoe.com)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Portfolio
-                            </label>
-                            <input
-                                type="text"
-                                id="portfolio"
-                                placeholder="Enter Portfolio (ex: https://www.johndoe.com)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
+                        <InputLabel label={"Basic User Information"} />
+
+                        <InputField label={"Full Name*"} type={"text"} id={"name"} placeholder={"Enter Name (ex: John Doe)"} value={userDeatils.name} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Phone"} type={"number"} id={"phone"} placeholder={"Enter Phone no (ex: +1234567890)"} value={userDeatils.phone} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"LinkedIn*"} type={"text"} id={"linkedin"} placeholder={"Enter LinkedIn (ex: https://www.linkedin.com/in/johndoe/)"} value={userDeatils.linkedin} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Github*"} type={"text"} id={"github"} placeholder={"Enter Github (ex: https://www.github/johndoe.com)"} value={userDeatils.github} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Portfolio"} type={"text"} id={"portfolio"} placeholder={"Enter Portfolio (ex: https://www.johndoe.com)"} value={userDeatils.portfolio} onChange={(e) => handleChnage(e)} />
                     </div>
                     {/* Job-Related Information */}
                     <div className='FormField p-4'>
-                        <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                            Job-Related Information
-                        </label>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Position Applying For
-                            </label>
-                            <input
-                                type="text"
-                                id="position"
-                                placeholder="Enter Position Applying For (ex:Software Engineer)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Email Subject
-                            </label>
-                            <input
-                                type="text"
-                                id="subject"
-                                placeholder="Enter Mail subject (ex: Application for UI Developer)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="number" className="mb-2 text-base font-medium text-white">
-                                Company name
-                            </label>
-                            <input
-                                type="text"
-                                id="company"
-                                placeholder="Enter the Company Name (ex: Tech Corp)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Job Posting Link
-                            </label>
-                            <input
-                                type="text"
-                                id="jobLink"
-                                placeholder="Enter your Job Post Link (ex: careers.techcorp.com/job/12345)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Skills
-                            </label>
-                            <input
-                                type="text"
-                                id="skills"
-                                placeholder="Enter Skills (ex: JavaScript, React, Node.js, etc.)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
+                        <InputLabel label={"Job-Related Information"} />
+
+                        <InputField label={"Position Applying For*"} type={"text"} id={"jobPosition"} placeholder={"Enter Position Applying For (ex:Software Engineer)"} value={userDeatils.jobPosition} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Email Subject*"} type={"text"} id={"mailSubject"} placeholder={"Enter Mail subject (ex: Application for UI Developer)"} value={userDeatils.mailSubject} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Company name*"} type={"text"} id={"company"} placeholder={"Enter the Company Name (ex: Tech Corp)"} value={userDeatils.company} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Job Post Link"} type={"text"} id={"jobLink"} placeholder={"Enter your Job Post Link (ex: careers.techcorp.com/job/12345)"} value={userDeatils.jobLink} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Skill*"} type={"text"} id={"skills"} placeholder={"Enter Skills (ex: JavaScript, React, Node.js, etc.)"} value={userDeatils.skills} onChange={(e) => handleChnage(e)} />
                     </div>
                     {/* Professional Background */}
                     <div className='FormField p-4'>
-                        <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                            Professional Background
-                        </label>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Professional Summary
-                            </label>
-                            <input
-                                type="text"
-                                id="summary"
-                                placeholder="A brief introduction about the exper & skills."
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Current/Last Job Title
-                            </label>
-                            <input
-                                type="text"
-                                id="company"
-                                placeholder="Enter the job title (ex: Backend Developer)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Current/Last Employer
-                            </label>
-                            <input
-                                type="text"
-                                id="jobLink"
-                                placeholder="Enter current/last employer (ex: Innovate Solutions Inc)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Years of Experience
-                            </label>
-                            <input
-                                type="text"
-                                id="experience"
-                                placeholder="Enter experience (ex: 3 years)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label htmlFor="text" className="mb-2 text-base font-medium text-white">
-                                Resume Link
-                            </label>
-                            <input
-                                type="text"
-                                id="resumeLink"
-                                placeholder="Add Resume/Cover Letter link (ex: www.myresume.com)"
-                                className="px-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:bg-white focus:border-transparent"
-                            />
-                        </div>
+                        <InputLabel label={"Professional Background"} />
+
+                        <InputField label={"Professional Summary*"} type={"text"} id={"summary"} placeholder={"A brief introduction about the exper & skills."} value={userDeatils.summary} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Current/Last Job Title*"} type={"text"} id={"jobTitle"} placeholder={"Enter the job title (ex: Backend Developer)"} value={userDeatils.jobTitle} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Current/Last Employer*"} type={"text"} id={"employer"} placeholder={"Enter current/last employer (ex: Innovate Solutions Inc)"} value={userDeatils.employer} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Years of Experience*"} type={"number"} id={"experience"} placeholder={"Enter experience (ex: 3 years)"} value={userDeatils.experience} onChange={(e) => handleChnage(e)} />
+
+                        <InputField label={"Resume Link*"} type={"text"} id={"resumeLink"} placeholder={"Add Resume/Cover Letter link (ex: www.myresume.com)"} value={userDeatils.resumeLink} onChange={(e) => handleChnage(e)} />
                     </div>
                 </div>
-                <button className="flex items-center px-4 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#7de7eb] focus:outline-none focus:ring-2 focus:bg-[#5ce1e6] focus:ring-opacity-75">
+                <button type='submit' className="flex items-center px-8 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#7de7eb] focus:outline-none focus:ring-2 focus:bg-[#5ce1e6] focus:ring-opacity-75">
                     Generate Prompt
                     <svg
                         className="w-5 h-5 ml-2"
@@ -208,8 +105,7 @@ const ResumeForm = () => {
                         ></path>
                     </svg>
                 </button>
-
-            </section>
+            </form>
         </>
     )
 }
