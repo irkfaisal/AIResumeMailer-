@@ -1,6 +1,9 @@
 # AIResumeMailer-
 Conveys an AI-driven smart solution for applying to jobs via email
+
 ![AIResumeMailerBanner](https://github.com/user-attachments/assets/58db0713-5019-4eb3-a19d-81370da60660)
+
+![AiResumeMailerForm](https://github.com/user-attachments/assets/9d6589fe-df2b-4c49-a1fb-65bec82dfdf1)
 
 
 
