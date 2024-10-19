@@ -1,0 +1,35 @@
+.resumeFormSection {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.resumeFormSection p {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 28px;
+    color: #bef3f5;
+    margin-top: 1.5rem;
+}
+
+.resumeFormFields{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 1rem;
+}
+
+.resumeFormFields .FormField{
+    width: 33.3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+}
