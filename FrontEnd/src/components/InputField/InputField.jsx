@@ -1,11 +1,11 @@
 import InputLabel from "../InputLabel/InputLabel"
 
-const InputField = ({ label, value, onChange, placeholder, id, type }) => {
+const InputField = ({ label, value, onChange, placeholder, id, type, style }) => {
     return (
         <div className="flex flex-col w-full">
             <InputLabel label={label} htmlFor={id} />
             <input
-                type={type}
+                type={type} style={style}
                 id={id} name={id}
                 value={value} onChange={onChange}
                 placeholder={placeholder}
