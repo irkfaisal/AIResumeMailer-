@@ -5,6 +5,8 @@ Conveys an AI-driven smart solution for applying to jobs via email
 
 ![AiResumeMailerForm](https://github.com/user-attachments/assets/9d6589fe-df2b-4c49-a1fb-65bec82dfdf1)
 
+![Screenshot (86)](https://github.com/user-attachments/assets/05077e9a-062e-4d44-ac5a-ea73be495d26)
+
 
 
 # MERN Email Sender App
