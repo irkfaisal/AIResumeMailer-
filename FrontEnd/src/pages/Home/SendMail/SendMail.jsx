@@ -1,39 +1,45 @@
 import { useState } from 'react'
 import { InputField } from '../../../components'
 import './SendMail.css'
+import useModal from '../../../hooks/useModal'
+import ConfimSendModal from './ConfirmModal/ConfimSendModal'
 
 const inputFieldStyle = {
-    width: "75%"
+    width: "100%"
 }
 
 const SendMail = () => {
     const [companyMail, setCompanyMail] = useState('')
+    const { isOpen, openModal } = useModal()
 
-    const handleChnage = (e) => {
-        const { name, value } = e.target;
-        setCompanyMail((prevData) => ({
-            ...prevData,
-            [name]: value
-        }))
+    const handleChange = (e) => {
+        setCompanyMail(e.target.value)
     }
 
     const handleSubmitResp = (e) => {
-        e.DefaultPrevent();
+        e.preventDefault();;
         const mail = {
             companyMail,
-            aiResp: ''
+            aiResp: 'Hello'
         }
         console.log(mail)
+        if (mail.companyMail && mail.aiResp) {
+            console.log("isOpen", isOpen)
+            openModal()
+        }
     }
+
+    console.log("isOpen", isOpen)
+
     return (
         <>
             <section className="glass-effect sendMailSection">
                 <p>AI Generated Response</p>
-                <div className="border-t border-gray-300"></div>
-                <form onSubmit={handleSubmitResp} className='mailField'>
-                    <InputField type={"text"} id={"companyMail"} placeholder={"Enter Company/Requirter mail address"} value={companyMail} onChange={(e) => handleChnage(e)} style={inputFieldStyle} />
-                    <button className='sendBtn w-1/4 flex items-center px-8 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#7de7eb] focus:outline-none focus:ring-2 focus:bg-[#5ce1e6] focus:ring-opacity-75'>
-                        Send
+                <div className="border-t border-gray-300 w-1/2"></div>
+                <form onSubmit={(e) => handleSubmitResp(e)} className='mailField'>
+                    <InputField type={"text"} id={"companyMail"} placeholder={"Enter Company/Requirter mail address (ex: hr@tcs.com)"} value={companyMail} onChange={(e) => handleChange(e)} style={inputFieldStyle} />
+                    <button className='sendBtn w-[40%] flex items-center px-8 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#7de7eb] focus:outline-none focus:ring-2 focus:bg-[#5ce1e6] focus:ring-opacity-75'>
+                        Submit
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -52,10 +58,11 @@ const SendMail = () => {
                 </form>
                 <div className='aiResponseTextArea px-4'>
                     <textarea
-                        className="resize-none rounded-md w-full h-60 bg-[#8ea8e01f] outline-white text-white p-6 overflow-y-auto"
+                        className="resize-none rounded-md w-full h-96 bg-[#fefeff6c] outline-white text-white p-6 overflow-y-auto"
                     />
                 </div>
             </section>
+            {isOpen && <ConfimSendModal />}
         </>
     )
 }
