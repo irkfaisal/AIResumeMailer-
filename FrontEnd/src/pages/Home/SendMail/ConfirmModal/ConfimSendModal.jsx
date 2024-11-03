@@ -3,7 +3,7 @@ import { Modal } from "../../../../components"
 const ModalContent = () => {
     return (
         <div>
-            A mail will be shared to the written email id
+            <h1>Are you sure want to mail to mailid@mail.com ?</h1>
         </div>
     )
 }
@@ -15,13 +15,11 @@ const ConfimSendModal = () => {
     }
 
     return (
-        <div>
-            <Modal
-                content={<ModalContent />}
-                modalTitle={"Send Mail Confirmation"} btnTitle={"Send"}
-                modalSubmit={handleSend}
-            />
-        </div>
+        <Modal
+            content={<ModalContent />}
+            modalTitle={"Send Mail Confirmation"} btnTitle={"Send"}
+            modalSubmit={handleSend}
+        />
     )
 }
 

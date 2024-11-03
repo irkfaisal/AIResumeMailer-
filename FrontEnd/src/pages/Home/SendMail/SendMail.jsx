@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { InputField } from '../../../components'
 import './SendMail.css'
-import useModal from '../../../hooks/useModal'
 import ConfimSendModal from './ConfirmModal/ConfimSendModal'
+import { openModal } from '../../../store/Slices/modalStateSlice';
 
 const inputFieldStyle = {
     width: "100%"
@@ -10,26 +11,25 @@ const inputFieldStyle = {
 
 const SendMail = () => {
     const [companyMail, setCompanyMail] = useState('')
-    const { isOpen, openModal } = useModal()
+    const dispatch = useDispatch();
+    const isModalOpen = useSelector((state) => state.modal.isOpen);
 
     const handleChange = (e) => {
         setCompanyMail(e.target.value)
     }
 
     const handleSubmitResp = (e) => {
-        e.preventDefault();;
+        e.preventDefault();
         const mail = {
             companyMail,
             aiResp: 'Hello'
         }
-        console.log(mail)
         if (mail.companyMail && mail.aiResp) {
-            console.log("isOpen", isOpen)
-            openModal()
+            dispatch(openModal(true))
         }
     }
 
-    console.log("isOpen", isOpen)
+    console.log("isModalOpen", isModalOpen)
 
     return (
         <>
@@ -62,7 +62,7 @@ const SendMail = () => {
                     />
                 </div>
             </section>
-            {isOpen && <ConfimSendModal />}
+            {isModalOpen && <ConfimSendModal />}
         </>
     )
 }
