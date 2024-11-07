@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from "react-redux"
 import { Modal } from "../../../../components"
+import { sendMailPost } from "../../../../store/Slices/sendMailSlice"
 
 const ModalContent = () => {
     return (
@@ -9,10 +11,15 @@ const ModalContent = () => {
 }
 
 const ConfimSendModal = () => {
+    const dispatch = useDispatch()
+    const { error, status } = useSelector((state) => state.sendMail)
 
     const handleSend = () => {
         alert("Submit")
+        dispatch(sendMailPost("data"))
     }
+
+    console.log("error, status", error, status)
 
     return (
         <Modal

@@ -13,6 +13,7 @@ const SendMail = () => {
     const [companyMail, setCompanyMail] = useState('')
     const dispatch = useDispatch();
     const isModalOpen = useSelector((state) => state.modal.isOpen);
+    const { post } = useSelector((state) => state.postUserData)
 
     const handleChange = (e) => {
         setCompanyMail(e.target.value)
@@ -29,7 +30,7 @@ const SendMail = () => {
         }
     }
 
-    console.log("isModalOpen", isModalOpen)
+    console.log("aiResponse", post);
 
     return (
         <>

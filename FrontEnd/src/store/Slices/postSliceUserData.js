@@ -23,7 +23,7 @@ const postUserDataSlice = createSlice({
         status: 'idle', // "idle" | "loading" | "succeeded" | "failed"
         error: null,
     },
-    reducer: {},
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(userDataPost.pending, (state) => {
