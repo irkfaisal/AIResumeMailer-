@@ -8,9 +8,11 @@ export const userDataPost = createAsyncThunk(
     async (postData, { rejectWithValue }) => {
         console.log("postData", postData)
         try {
-            const response = await axios.post('/ai/get-ai-response', postData);
+            const response = await axios.post('http://localhost:8400/ai/get-ai-response', postData);
+            console.log("get-ai-response", response)
             return response.data;
         } catch (error) {
+            console.log("get-ai-error", error)
             return rejectWithValue(error.response.data);
         }
     }
