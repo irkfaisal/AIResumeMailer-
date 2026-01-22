@@ -1,6 +1,7 @@
 // import React from 'react'
 
 import { Navbar } from "../../../components"
+import { authAPI } from "../../../services/auth"
 import styles from "../../../styles/styles"
 // import styles from "../../../styles/styles"
 import HeroBanner from "./HeroBanner/HeroBanner"
@@ -11,7 +12,7 @@ const LandingPage = () => {
             <section className={`w-full h-screen ${styles.flexCenter} flex-col`}>
                 <Navbar />
                 <HeroBanner />
-            </section>
+            </section >
         </>
     )
 }

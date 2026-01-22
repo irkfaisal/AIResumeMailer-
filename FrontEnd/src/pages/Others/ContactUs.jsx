@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-const ContactUs = () => {
+export default function ContactUs() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -67,5 +67,3 @@ const ContactUs = () => {
         </div>
     );
 };
-
-export default ContactUs;

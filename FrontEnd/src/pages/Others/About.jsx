@@ -1,6 +1,4 @@
-import React from 'react';
-
-const About = () => {
+export default function About() {
     return (
         <div className="min-h-screen gradient__bg p-6">
             <div className="max-w-4xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
@@ -51,5 +49,3 @@ const About = () => {
         </div>
     );
 };
-
-export default About;

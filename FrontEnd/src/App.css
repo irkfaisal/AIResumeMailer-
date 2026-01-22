@@ -53,3 +53,18 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for a 3D effect */
   border: 1px solid rgba(255, 255, 255, 0.404); /* Subtle border for definition */
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}

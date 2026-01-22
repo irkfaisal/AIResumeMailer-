@@ -1,6 +1,9 @@
 # Node modules
 node_modules/
 
+# SSO
+SSO.json
+
 # Logs
 *.log
 npm-debug.log*
