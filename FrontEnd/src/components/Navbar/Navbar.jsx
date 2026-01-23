@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import ProfilePopup from './ProfilePopup';
 
 const Navbar = () => {
     return (
@@ -22,7 +22,7 @@ const Navbar = () => {
                 </Link>
                 <Link to="/contact">
                     <h1 className="font-poppins font-semibold text-[20px] text-white xs:leading-[76.8px] leading-[66.8px]">
-                        Contact Us
+                        Contact
                     </h1>
                 </Link>
                 <Link to="/login">
@@ -30,6 +30,7 @@ const Navbar = () => {
                         Login
                     </h1>
                 </Link>
+                <ProfilePopup />
             </div>
         </section>
     );

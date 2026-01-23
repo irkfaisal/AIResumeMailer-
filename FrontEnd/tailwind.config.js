@@ -11,7 +11,16 @@ export default {
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
-      },  
+      },
+      animation: {
+        'spin-reverse': 'spin-reverse 1s linear infinite',
+      },
+      keyframes: {
+        'spin-reverse': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' },
+        },
+      },
     },
     screens: {
       xs: "480px",
