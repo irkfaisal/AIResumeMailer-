@@ -15,8 +15,38 @@ export const InputsizeClasses = {
     lg: "px-4 py-3 text-lg",
 };
 
-export const InputstateClasses = error
-    ? "border-red-500 focus:ring-red-500"
-    : "border-gray-300 focus:ring-blue-500";
+// export const InputstateClasses = error
+//     ? "border-red-500 focus:ring-red-500"
+//     : "border-gray-300 focus:ring-blue-500";
 
 // Input.jsx closed
+
+// ResumeWorkspace.jsx start
+
+const ACTION_TYPES = {
+    RESUME: 'RESUME',
+    VIEW_PROFILE: 'VIEW_PROFILE',
+    ADD_PROFILE: 'ADD_PROFILE'
+};
+
+export const ResumeCardActions = [
+    {
+        title: 'Resume',
+        type: ACTION_TYPES.RESUME,
+        desc: 'Manage and update your resume details',
+        icon: '📄'
+    },
+    {
+        title: 'View Profile',
+        type: ACTION_TYPES.VIEW_PROFILE,
+        desc: 'View your existing profile information',
+        icon: '👤'
+    },
+    {
+        title: 'Add Profile',
+        type: ACTION_TYPES.ADD_PROFILE,
+        desc: 'Create a new profile for different roles',
+        icon: '➕'
+    }
+];
+// ResumeWorkspace.jsx end

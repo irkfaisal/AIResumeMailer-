@@ -2,7 +2,10 @@ import { InputbaseClasses, InputsizeClasses, InputstateClasses } from "../../con
 import { useInput } from "../../hooks/useInput";
 
 export function Input(props) {
-    const { type, value, onChange, disabled, required, size } = useInput();
+    const { type, value, onChange, disabled, required, size, error } = useInput();
+    const InputstateClasses = error
+        ? "border-red-500 focus:ring-red-500"
+        : "border-gray-300 focus:ring-blue-500";
     const InputclassName = `${InputbaseClasses} ${InputsizeClasses[size]} ${InputstateClasses}`;
 
     if (type === "textarea") {

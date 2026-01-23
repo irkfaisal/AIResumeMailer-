@@ -1,38 +1,41 @@
-import { Link } from 'react-router-dom';
-import ProfilePopup from './ProfilePopup';
+import { Link } from "react-router-dom";
+import ProfilePopup from "./ProfilePopup";
 
 const Navbar = () => {
     return (
-        <section className="w-full flex justify-between items-start">
-            <div className="w-1/2">
-                <h1 className="font-poppins font-semibold text-[32px] text-white xs:leading-[76.8px] leading-[66.8px]">
+        <nav className="w-full flex items-center justify-between px-8 py-4">
+            {/* Logo */}
+            <div>
+                <h1 className="font-poppins font-semibold text-2xl text-white">
                     AiResumeMailer
                 </h1>
             </div>
-            <div className="w-1/2 flex justify-end items-center gap-8">
-                <Link to="/dashboard">
-                    <h1 className="font-poppins font-semibold text-[20px] text-white xs:leading-[76.8px] leading-[66.8px]">
-                        Dashboard
-                    </h1>
+
+            {/* Navigation */}
+            <div className="flex items-center gap-8">
+                <Link to="/dashboard" className="nav-link">
+                    Dashboard
                 </Link>
-                <Link to="/about">
-                    <h1 className="font-poppins font-semibold text-[20px] text-white xs:leading-[76.8px] leading-[66.8px]">
-                        About
-                    </h1>
+
+                <Link to="/resume-workspace" className="nav-link">
+                    Resume Workspace
                 </Link>
-                <Link to="/contact">
-                    <h1 className="font-poppins font-semibold text-[20px] text-white xs:leading-[76.8px] leading-[66.8px]">
-                        Contact
-                    </h1>
+
+                <Link to="/about" className="nav-link">
+                    About
                 </Link>
-                <Link to="/login">
-                    <h1 className="font-poppins font-semibold text-[20px] text-white xs:leading-[76.8px] leading-[66.8px]">
-                        Login
-                    </h1>
+
+                <Link to="/contact" className="nav-link">
+                    Contact
                 </Link>
+
+                <Link to="/login" className="nav-link">
+                    Login
+                </Link>
+
                 <ProfilePopup />
             </div>
-        </section>
+        </nav>
     );
 };
 

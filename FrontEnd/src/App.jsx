@@ -10,6 +10,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('./pages/Auth/Login'));
 const About = lazy(() => import('./pages/Others/About'));
 const ContactUs = lazy(() => import('./pages/Others/ContactUs'));
+const ResumeWorkspace = lazy(() => import('./pages/ResumeWorkspace/ResumeWorkspace'));
 
 function App() {
   const { loading, user,
@@ -41,6 +42,7 @@ function App() {
             <Route path='/contact' element={<ContactUs />} />
             <Route element={<ProtectedRoute />}>
               <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/resume-workspace' element={<ResumeWorkspace />} />
             </Route>
             {/* Redirect root to dashboard or login */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />

@@ -1,13 +1,18 @@
 import { AuthProvider } from "./auth";
 import { ModalProvider } from "./ModalProvider";
 import { TabProvider } from "./TabProvider";
+import { InputProvider } from "./InputProvider";
 
-export function ContextProvider() {
+export function ContextProvider({ children }) {
     return (
-        <Context.Provider>
-            <ModalProvider />
-            <AuthProvider />
-            <TabProvider />
-        </Context.Provider >
+        <AuthProvider>
+            <TabProvider>
+                <ModalProvider>
+                    <InputProvider>
+                        {children}
+                    </InputProvider>
+                </ModalProvider>
+            </TabProvider>
+        </AuthProvider >
     );
 }

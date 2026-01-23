@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 .gradient__bg {
-  background: 
+  background:
     radial-gradient(circle at 10% 50%, rgba(0, 40, 83, 0.6), transparent 50%),
     radial-gradient(circle at 90% 50%, rgba(0, 40, 83, 0.6), transparent 50%),
     linear-gradient(360.81deg, #0b162e -43.27%, #090e23 -21.24%, #080c20 5%, #07081d 20%, #050618 35%, #040515 51.94%, #02030e 70%, #000000 100%);
@@ -9,7 +9,7 @@
   background-repeat: no-repeat;
 }
 
-.heroBanner-content{
+.heroBanner-content {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -19,26 +19,26 @@
 }
 
 .gradient__text {
-  background:  linear-gradient(89.97deg, #AE67FA 1.84%, #F49867 102.67%);
+  background: linear-gradient(89.97deg, #AE67FA 1.84%, #F49867 102.67%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 4rem;
-  font-weight:bold;
+  font-weight: bold;
   text-align: center;
 }
 
-.heroBanner-content h1{
-  font-family:'Manrope', sans-serif;
+.heroBanner-content h1 {
+  font-family: 'Manrope', sans-serif;
   font-weight: 800;
   font-size: 3rem;
   line-height: 75px;
   letter-spacing: -0.04em;
-  
+
 }
 
 .heroBanner-content p {
-  font-family:'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 28px;
@@ -47,11 +47,13 @@
 }
 
 .glass-effect {
-  background: rgba(255, 255, 255, 0.1); 
-  backdrop-filter: blur(10px); 
-  border-radius: 10px; 
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for a 3D effect */
-  border: 1px solid rgba(255, 255, 255, 0.404); /* Subtle border for definition */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for a 3D effect */
+  border: 1px solid rgba(255, 255, 255, 0.404);
+  /* Subtle border for definition */
 }
 
 @keyframes fadeIn {
@@ -59,6 +61,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -67,4 +70,12 @@
 
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-out;
+}
+
+.nav-link {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 28px;
+  color: #fff;
 }

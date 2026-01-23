@@ -1,7 +1,7 @@
 import { sizeClasses } from "../../constants/constant";
 import { useModal } from "../../hooks/useModal";
 
-export function Modal({ children, size = 'lg' }) {
+export default function Modal({ children, size = 'lg' }) {
     const { modalState, closeModal } = useModal();
     if (!modalState.isOpen) return null;
 
