@@ -23,7 +23,7 @@ export const InputsizeClasses = {
 
 // ResumeWorkspace.jsx start
 
-const ACTION_TYPES = {
+export const CARD_ACTION_TYPES = {
     RESUME: 'RESUME',
     VIEW_PROFILE: 'VIEW_PROFILE',
     ADD_PROFILE: 'ADD_PROFILE'
@@ -32,19 +32,19 @@ const ACTION_TYPES = {
 export const ResumeCardActions = [
     {
         title: 'Resume',
-        type: ACTION_TYPES.RESUME,
+        type: CARD_ACTION_TYPES.RESUME,
         desc: 'Manage and update your resume details',
         icon: '📄'
     },
     {
         title: 'View Profile',
-        type: ACTION_TYPES.VIEW_PROFILE,
+        type: CARD_ACTION_TYPES.VIEW_PROFILE,
         desc: 'View your existing profile information',
         icon: '👤'
     },
     {
         title: 'Add Profile',
-        type: ACTION_TYPES.ADD_PROFILE,
+        type: CARD_ACTION_TYPES.ADD_PROFILE,
         desc: 'Create a new profile for different roles',
         icon: '➕'
     }

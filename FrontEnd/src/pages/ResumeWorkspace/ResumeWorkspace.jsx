@@ -1,5 +1,5 @@
 import styles from '../../styles/styles';
-import WorkspaceActions from './WorkspaceActions';
+import ResumeWorkspaceActions from './ResumeWorkspaceActions/ResumeWorkspaceActions';
 
 export default function ResumeWorkspace() {
     return (
@@ -9,11 +9,10 @@ export default function ResumeWorkspace() {
                     Resume Workspace
                 </h1>
 
-                <WorkspaceActions />
+                <ResumeWorkspaceActions />
 
-                {/* Future components will go here */}
                 <div className="mt-12 text-white/50 text-center">
-                    More components coming soon...
+                    {/* Other components */}
                 </div>
             </div>
         </div>

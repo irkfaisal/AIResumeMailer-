@@ -25,7 +25,7 @@ Modal.Header = function ModalHeader({ children }) {
     const { closeModal } = useModal();
     return (
         <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-900">{children}</h2>
+            <h2 className="text-xl font-semibold text-white">{children}</h2>
             <button
                 onClick={closeModal}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
