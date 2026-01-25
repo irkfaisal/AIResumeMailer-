@@ -1,12 +1,61 @@
-import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { InputProvider } from '../../../../../../context/InputProvider';
+import { Input } from '../../../../../../components/Input/Input';
 
 export default function JobDetails() {
+    const { register, formState: { errors } } = useFormContext();
+
     return (
-        <div className="p-4">
-            <div className="bg-blue-50 border border-blue-200 p-4 rounded-md">
-                <h3 className="font-semibold text-blue-800">Job Details</h3>
-                <p className="text-sm text-blue-700 mt-1">Form fields to be implemented here.</p>
-            </div>
+        <div className="space-y-6">
+            {/* Current Job Title */}
+            <InputProvider
+                type="text"
+                required={true}
+                error={errors.jobTitle?.message}
+            >
+                <div className="flex flex-col gap-1">
+                    <Input.Label>Current Job Title</Input.Label>
+                    <Input
+                        {...register('jobTitle')}
+                        placeholder="e.g., Senior Software Engineer"
+                    />
+                    <Input.Error />
+                </div>
+            </InputProvider>
+
+            {/* Years of Experience */}
+            <InputProvider
+                type="number"
+                required={true}
+                error={errors.yearsOfExperience?.message}
+            >
+                <div className="flex flex-col gap-1">
+                    <Input.Label>Years of Experience</Input.Label>
+                    <Input
+                        {...register('yearsOfExperience', { valueAsNumber: true })}
+                        placeholder="e.g., 5"
+                        min="0"
+                        step="0.5"
+                    />
+                    <Input.Error />
+                </div>
+            </InputProvider>
+
+            {/* Current Job Location */}
+            <InputProvider
+                type="text"
+                required={false}
+                error={errors.jobLocation?.message}
+            >
+                <div className="flex flex-col gap-1">
+                    <Input.Label>Current Job Location</Input.Label>
+                    <Input
+                        {...register('jobLocation')}
+                        placeholder="e.g., San Francisco, CA or Remote"
+                    />
+                    <Input.Error />
+                </div>
+            </InputProvider>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { InputbaseClasses, InputsizeClasses, InputstateClasses } from "../../constants/constant";
+import { InputbaseClasses, InputsizeClasses } from "../../constants/constant";
 import { useInput } from "../../hooks/useInput";
 
 export function Input(props) {

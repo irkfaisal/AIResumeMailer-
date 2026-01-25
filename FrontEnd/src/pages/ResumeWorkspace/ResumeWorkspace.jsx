@@ -1,4 +1,5 @@
 import styles from '../../styles/styles';
+import AddJobDescription from './AddJobDescription/AddJobDescription';
 import ResumeWorkspaceActions from './ResumeWorkspaceActions/ResumeWorkspaceActions';
 
 export default function ResumeWorkspace() {
@@ -11,8 +12,11 @@ export default function ResumeWorkspace() {
 
                 <ResumeWorkspaceActions />
 
-                <div className="mt-12 text-white/50 text-center">
-                    {/* Other components */}
+                {/* Job Description Card - Centered below the 3-card grid */}
+                <div className="mt-12 flex justify-center">
+                    <div className="w-full md:w-1/3">
+                        <AddJobDescription />
+                    </div>
                 </div>
             </div>
         </div>
