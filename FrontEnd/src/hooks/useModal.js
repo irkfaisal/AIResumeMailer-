@@ -3,7 +3,6 @@ import { ModalContext } from "../context/ModalProvider";
 
 
 export function useModal() {
-    console.log("useModal", ModalContext);
     const context = useContext(ModalContext);
 
     if (!context) {

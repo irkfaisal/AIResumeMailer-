@@ -1,4 +1,4 @@
-export default function WorkspaceActionCard({ action, openModal }) {
+export default function ResumeWorkspaceActionCard({ action, openModal }) {
     return (
         <div
             key={action.type}
