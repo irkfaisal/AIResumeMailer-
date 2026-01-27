@@ -4,7 +4,7 @@ import { Input } from '../../../../components/Input/Input';
 
 /**
  * ArrayInput Component - Reusable component for managing array inputs
- * Used for Skills and Roles & Responsibilities
+ * Currently Used for Skills and Roles & Responsibilities
  */
 export default function ArrayInput({
     label,
@@ -14,7 +14,7 @@ export default function ArrayInput({
     onRemove,
     error,
     required = false,
-    inputType = 'text', // 'text' for skills (short), 'textarea' for roles (longer)
+    inputType = 'text',
     helperText = ''
 }) {
     const [inputValue, setInputValue] = useState('');

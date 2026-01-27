@@ -8,7 +8,7 @@ const AddJobDescriptionForm = lazy(() => import('./AddJobDescriptionWorkspace/Ad
 const JOB_DESCRIPTION_MODAL = 'JOB_DESCRIPTION';
 
 export default function AddJobDescription() {
-    const { openModal, modalState, closeModal } = useModal();
+    const { openModal, modalState } = useModal();
 
     const handleOpenModal = () => {
         openModal(JOB_DESCRIPTION_MODAL);
