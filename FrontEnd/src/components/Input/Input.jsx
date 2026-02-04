@@ -1,8 +1,28 @@
+import { forwardRef } from "react";
 import { InputbaseClasses, InputsizeClasses } from "../../constants/constant";
 import { useInput } from "../../hooks/useInput";
 
-export function Input(props) {
-    const { type, value, onChange, disabled, required, size, error } = useInput();
+export const Input = forwardRef((props, ref) => {
+    const context = useInput();
+
+    // Prioritize props over context for form handling
+    const isRegister = !!props.onChange; // Simple check for RHF or external control without value
+
+    const type = props.type || context.type;
+    const size = props.size || context.size;
+    const error = props.error || context.error;
+    const disabled = props.disabled !== undefined ? props.disabled : context.disabled;
+    const required = props.required !== undefined ? props.required : context.required;
+
+    // Resolve value and onChange
+    // If props has onChange (like from register), use it.
+    // If props has value (controlled), use it.
+    // If passed by RHF (has onChange, no value), do not bind context.value (leave uncontrolled).
+    const onChange = props.onChange || context.onChange;
+    const value = props.value !== undefined
+        ? props.value
+        : (isRegister ? undefined : context.value);
+
     const InputstateClasses = error
         ? "border-red-500 focus:ring-red-500"
         : "border-gray-300 focus:ring-blue-500";
@@ -12,6 +32,7 @@ export function Input(props) {
         return (
             <textarea
                 {...props}
+                ref={ref}
                 className={InputclassName}
                 value={value}
                 onChange={onChange}
@@ -25,6 +46,7 @@ export function Input(props) {
         return (
             <select
                 {...props}
+                ref={ref}
                 className={InputclassName}
                 value={value}
                 onChange={onChange}
@@ -37,6 +59,7 @@ export function Input(props) {
     return (
         <input
             {...props}
+            ref={ref}
             type={type}
             className={InputclassName}
             value={value}
@@ -46,7 +69,7 @@ export function Input(props) {
         />
     );
 
-};
+});
 
 Input.Label = function InputLabel({ children }) {
     const { required } = useInput();

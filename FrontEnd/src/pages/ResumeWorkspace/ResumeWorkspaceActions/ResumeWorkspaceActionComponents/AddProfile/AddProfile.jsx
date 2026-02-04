@@ -1,5 +1,6 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from 'sonner';
 import { TabProvider } from "../../../../../context/TabProvider";
 import { TabsList } from "../../../../../components/Tab/Tabs";
 import { useTab } from "../../../../../hooks/useTab";
@@ -7,8 +8,9 @@ import BasicDetails from "./AddProfileTabComponents/BasicDetails";
 import JobDetails from "./AddProfileTabComponents/JobDetails";
 import ProfessionalDetails from "./AddProfileTabComponents/ProfessionalDetails";
 import { addProfileSchema } from "./validationSchemas";
+import { useProfile } from "../../../../../hooks/apiHooks/useProfile";
 
-const NavigationControls = () => {
+const NavigationControls = ({ isSubmitting }) => {
     const { activeTab, setActiveTab } = useTab();
 
     const handleNext = () => {
@@ -45,9 +47,10 @@ const NavigationControls = () => {
             ) : (
                 <button
                     type="submit"
-                    className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1"
+                    disabled={isSubmitting}
+                    className={`px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                    Submit Profile
+                    {isSubmitting ? 'Submitting...' : 'Submit Profile'}
                 </button>
             )}
         </div>
@@ -55,6 +58,7 @@ const NavigationControls = () => {
 };
 
 export default function AddProfile() {
+    const { saveProfile, loading } = useProfile();
     const methods = useForm({
         resolver: yupResolver(addProfileSchema),
         mode: 'onBlur', // Validate on blur for better UX
@@ -80,15 +84,21 @@ export default function AddProfile() {
         },
     });
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log('Form submitted successfully:', data);
-        // TODO: Add API call to submit profile data
-        alert('Profile created successfully! Check console for data.');
+        try {
+            await saveProfile(data);
+            console.log('Profile created successfully!', data);
+            toast.success('Profile created successfully!');
+        } catch (error) {
+            console.error('Profile creation failed:', error);
+            toast.error('Failed to create profile.');
+        }
     };
 
     const onError = (errors) => {
         console.error('Form validation errors:', errors);
-        alert('Please fix the validation errors before submitting.');
+        toast.error('Please fix the validation errors before submitting.');
     };
 
     return (
@@ -104,7 +114,7 @@ export default function AddProfile() {
                             <TabsList.Tab index={2}>Professional Details</TabsList.Tab>
                         </TabsList>
 
-                        <div className="mt-8 min-h-[300px]">
+                        <div className="mt-8 h-[calc(100vh-70vh)] overflow-y-auto">
                             <TabsList.Panel index={0}>
                                 <BasicDetails />
                             </TabsList.Panel>
@@ -115,7 +125,7 @@ export default function AddProfile() {
                                 <ProfessionalDetails />
                             </TabsList.Panel>
                         </div>
-                        <NavigationControls />
+                        <NavigationControls isSubmitting={loading} />
                     </div>
                 </TabProvider>
             </form>

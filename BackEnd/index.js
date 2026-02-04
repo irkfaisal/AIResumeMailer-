@@ -8,6 +8,9 @@ import authRoutes from './routes/authRoutes.js';
 import mailRoutes from "./routes/mailRoutes.js"
 import gptRoutes from "./routes/gptRoutes.js";
 import passportConfig from "./config/passportConfig.js";
+import userProfileRoutes from './routes/userProfileRoutes.js';
+import resumeRoutes from './routes/resumeRoutes.js';
+import jobDescriptionRoutes from './routes/jobDescriptionRoutes.js';
 
 console.log(process.cwd());
 
@@ -22,7 +25,9 @@ app.use(express.json());
 // Middleware for CORS (allowing cross-origin requests)
 app.use(cors({
   origin: process.env.CLIENT_URL,
-  credentials: true
+  credentials: true,
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization"
 }));
 
 // Session middleware
@@ -31,6 +36,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
+    secure: false, // Set to false for local http development
+    httpOnly: true,
+    sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
@@ -46,6 +54,9 @@ passportConfig(passport);
 app.use('/auth', authRoutes);
 app.use('/mail', mailRoutes)
 app.use('/ai', gptRoutes)
+app.use('/api/profile', userProfileRoutes);
+app.use('/api/resume', resumeRoutes);
+app.use('/api/job-description', jobDescriptionRoutes);
 
 
 // Error handling middleware (ensure this is after the routes)

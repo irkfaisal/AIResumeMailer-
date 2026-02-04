@@ -1,26 +1,6 @@
-import { useState } from 'react';
-
-// Sample static profile data - replace with actual API data later
-const sampleProfileData = {
-    fullName: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    linkedinLink: 'https://linkedin.com/in/johndoe',
-    githubLink: 'https://github.com/johndoe',
-    twitterLink: '', // Empty - should not display
-    portfolioLink: 'https://johndoe.dev',
-    articleLink: '', // Empty - should not display
-    jobTitle: 'Senior Software Engineer',
-    yearsOfExperience: 5,
-    jobLocation: 'San Francisco, CA',
-    skills: 'JavaScript, React, Node.js, Python, TypeScript',
-    tools: 'VS Code, Git, Docker, AWS, Kubernetes',
-    specialization: 'Full-Stack Development & Cloud Architecture',
-    professionalSummary: 'Experienced software engineer with a passion for building scalable web applications and cloud-native solutions. Strong background in modern JavaScript frameworks and DevOps practices.',
-    projectLink: 'https://github.com/johndoe/awesome-project',
-    projectDescription: 'Built a real-time collaboration platform using React, Node.js, and WebSockets. Implemented microservices architecture with Docker and Kubernetes for scalability.',
-    additionalInfo: 'AWS Certified Solutions Architect, Speaker at React Conf 2023',
-};
+import { useEffect, useState } from 'react';
+import { useProfile } from '../../../../../hooks/apiHooks/useProfile';
+import Loader from '../../../../../components/Loader/Loader';
 
 // Field configuration with labels and sections
 const profileFields = {
@@ -114,25 +94,53 @@ const ProfileSection = ({ title, fields, data }) => {
 };
 
 export default function ViewProfile() {
-    // In a real app, this would come from props, context, or API
-    const [profileData] = useState(sampleProfileData);
+    const { fetchProfile, profile: profileData, loading } = useProfile();
 
-    // Check if there's any profile data at all
-    const hasAnyData = Object.values(profileData).some(value =>
-        value && (typeof value !== 'string' || value.trim() !== '')
+    useEffect(() => {
+        fetchProfile();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center p-10">
+                <div className="text-xl text-gray-600">
+                    <Loader />
+                </div>
+            </div>
+        );
+    }
+
+    const hasAnyData = profileData && Object.values(profileData).some(
+        value => value && (typeof value !== 'string' || value.trim() !== '')
     );
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-4xl mx-auto mt-8">
-            <div className="border-b pb-4 mb-6">
-                <h1 className="text-2xl font-bold text-gray-800">View Profile</h1>
-                <p className="text-sm text-gray-500 mt-1">
-                    Review your professional profile information
-                </p>
+        <div className="bg-white rounded-lg shadow-lg w-[90vw] max-w-6xl overflow-hidden">
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-800">View Profile</h1>
+                    <p className="text-sm text-gray-500">
+                        Review your professional profile information
+                    </p>
+                </div>
+
+                {hasAnyData && (
+                    <div className="flex gap-3">
+                        <button className="px-5 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50">
+                            Edit Profile
+                        </button>
+                        <button className="px-5 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg hover:bg-[#4bc8cd]">
+                            Download PDF
+                        </button>
+                    </div>
+                )}
             </div>
 
+            {/* Body */}
             {!hasAnyData ? (
-                <div className="text-center py-12">
+                <div className="h-full flex flex-col items-center justify-center text-center">
                     <div className="text-6xl mb-4">📋</div>
                     <h3 className="text-xl font-semibold text-gray-600 mb-2">
                         No Profile Data Available
@@ -142,37 +150,32 @@ export default function ViewProfile() {
                     </p>
                 </div>
             ) : (
-                <div className="space-y-6">
-                    <ProfileSection
-                        title="Basic Details"
-                        fields={profileFields.basicDetails}
-                        data={profileData}
-                    />
-                    <ProfileSection
-                        title="Job Details"
-                        fields={profileFields.jobDetails}
-                        data={profileData}
-                    />
-                    <ProfileSection
-                        title="Professional Details"
-                        fields={profileFields.professionalDetails}
-                        data={profileData}
-                    />
-                </div>
-            )}
+                <div className="grid grid-cols-[320px_1fr] h-[calc(100vh-30vh)]">
 
-            {hasAnyData && (
-                <div className="mt-8 pt-4 border-t border-gray-200 flex justify-end gap-3">
-                    <button
-                        className="px-6 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1"
-                    >
-                        Edit Profile
-                    </button>
-                    <button
-                        className="px-6 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#4bc8cd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#5ce1e6] focus:ring-offset-1"
-                    >
-                        Download as PDF
-                    </button>
+                    {/* LEFT COLUMN – fixed */}
+                    <aside className="p-6 border-r overflow-hidden">
+                        <ProfileSection
+                            title="Basic Details"
+                            fields={profileFields.basicDetails}
+                            data={profileData}
+                        />
+
+                        <ProfileSection
+                            title="Job Details"
+                            fields={profileFields.jobDetails}
+                            data={profileData}
+                        />
+                    </aside>
+
+                    {/* RIGHT COLUMN – scrollable */}
+                    <section className="p-6 overflow-y-auto">
+                        <ProfileSection
+                            title="Professional Details"
+                            fields={profileFields.professionalDetails}
+                            data={profileData}
+                        />
+                    </section>
+
                 </div>
             )}
         </div>

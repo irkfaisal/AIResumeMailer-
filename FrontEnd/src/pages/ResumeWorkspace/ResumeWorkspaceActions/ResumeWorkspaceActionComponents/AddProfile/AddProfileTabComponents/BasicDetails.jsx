@@ -8,7 +8,6 @@ export default function BasicDetails() {
 
     return (
         <div className="space-y-6">
-            {/* Full Name */}
             <InputProvider
                 type="text"
                 required={true}

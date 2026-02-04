@@ -1,25 +1,44 @@
+import { useEffect } from "react";
 import { sizeClasses } from "../../constants/constant";
 import { useModal } from "../../hooks/useModal";
 
-export default function Modal({ children, size = 'lg' }) {
+export default function Modal({ children, size = '2xl' }) {
+
     const { modalState, closeModal } = useModal();
+
+    useEffect(() => {
+        if (modalState.isOpen) {
+            const originalOverflow = document.body.style.overflow;
+            document.body.style.overflow = "hidden";
+
+            return () => {
+                document.body.style.overflow = originalOverflow;
+            };
+        }
+    }, [modalState.isOpen]);
+
     if (!modalState.isOpen) return null;
 
     return (
-        <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center animate-fadeIn"
-                onClick={(e) => e.stopPropagation()}>
-                <div
-                    className="absolute inset-0 bg-black bg-opacity-50"
-                    onClick={closeModal}
-                />
-                <div className={`relative ${sizeClasses[size]} w-full`} onClick={(e) => e.stopPropagation()}>
-                    {children}
-                </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+
+            {/* Backdrop */}
+            <div
+                className="absolute inset-0 bg-black/50"
+                onClick={closeModal}
+            />
+
+            {/* Modal shell */}
+            <div
+                className={`relative ${sizeClasses[size]} w-[90vw]`}
+                onClick={(e) => e.stopPropagation()}
+            >
+                {children}
             </div>
-        </>
-    )
-};
+        </div>
+    );
+}
+
 
 Modal.Header = function ModalHeader({ children }) {
     const { closeModal } = useModal();
@@ -40,14 +59,24 @@ Modal.Header = function ModalHeader({ children }) {
 
 Modal.Content = function ModalContent({ children, className = '' }) {
     return (
-        <div className={`relative bg-white rounded-lg shadow-xl mx-4 animate-slideUp ${className}`}>
+        <div
+            className={`bg-white rounded-lg shadow-xl flex flex-col overflow-hidden ${className}`}
+        >
             {children}
         </div>
     );
 };
 
+
+
 Modal.Body = function ModalBody({ children, className = '' }) {
-    return <div className={`p-6 ${className}`}>{children}</div>;
+    return (
+        <div
+            className={`flex-1 min-h-0 overflow-y-auto overscroll-contain p-6 ${className}`}
+        >
+            {children}
+        </div>
+    );
 };
 
 Modal.Footer = function ModalFooter({ children, className = '' }) {
