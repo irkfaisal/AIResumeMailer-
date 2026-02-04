@@ -1,12 +1,8 @@
 import * as yup from 'yup';
 
-// URL validation regex
 const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-
-// Phone validation regex (supports various formats)
 const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
-// Basic Details Schema
 export const basicDetailsSchema = yup.object().shape({
     fullName: yup
         .string()

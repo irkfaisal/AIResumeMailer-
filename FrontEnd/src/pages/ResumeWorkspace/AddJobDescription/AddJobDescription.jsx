@@ -2,13 +2,15 @@ import { lazy, Suspense } from 'react';
 import { Modal } from '../../../components';
 import { useModal } from '../../../hooks/useModal';
 import Loader from '../../../components/Loader/Loader';
+import { useJobDescription } from '../../../hooks/apiHooks/useJobDescription';
 
 const AddJobDescriptionForm = lazy(() => import('./AddJobDescriptionWorkspace/AddJobDescriptionForm'));
 
 const JOB_DESCRIPTION_MODAL = 'JOB_DESCRIPTION';
 
 export default function AddJobDescription() {
-    const { openModal, modalState } = useModal();
+    const { openModal, modalState, closeModal } = useModal();
+    const { loading } = useJobDescription();
 
     const handleOpenModal = () => {
         openModal(JOB_DESCRIPTION_MODAL);
@@ -49,7 +51,7 @@ export default function AddJobDescription() {
 
             {/* Modal */}
             {isJobDescriptionModal && (
-                <Modal size="2xl">
+                <Modal size="xl">
                     <Modal.Content>
                         <Modal.Header>Add Job Description</Modal.Header>
                         <Modal.Body>
@@ -57,6 +59,25 @@ export default function AddJobDescription() {
                                 <AddJobDescriptionForm />
                             </Suspense>
                         </Modal.Body>
+                        <Modal.Footer>
+                            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                                <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    className="px-6 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    form="add-job-description-form"
+                                    disabled={loading}
+                                    className={`px-6 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#4bc8cd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#5ce1e6] focus:ring-offset-1 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                >
+                                    {loading ? 'Saving...' : 'Save Job Description'}
+                                </button>
+                            </div>
+                        </Modal.Footer>
                     </Modal.Content>
                 </Modal>
             )}

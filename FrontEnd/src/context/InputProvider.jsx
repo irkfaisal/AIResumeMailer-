@@ -24,6 +24,7 @@ export function InputProvider({
             setUncontrolledValue(e.target.value);
         }
         onChange?.(e);
+        console.log(e.target.value);
     }, [isControlled, onChange]);
 
     const contextValue = useMemo(

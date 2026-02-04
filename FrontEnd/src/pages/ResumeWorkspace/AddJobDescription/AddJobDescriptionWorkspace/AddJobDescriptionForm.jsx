@@ -7,8 +7,10 @@ import { toast } from 'sonner';
 import { InputProvider } from '../../../../context/InputProvider';
 import { Input } from '../../../../components/Input/Input';
 import { useModal } from '../../../../hooks/useModal';
+import { useJobDescription } from '../../../../hooks/apiHooks/useJobDescription';
 
 export default function AddJobDescriptionForm() {
+    const { addJob } = useJobDescription();
     const { closeModal } = useModal();
 
     const {
@@ -30,33 +32,18 @@ export default function AddJobDescriptionForm() {
         },
     });
 
-    const roles = watch('roles');
-    const skills = watch('skills');
-
-    const handleAddRole = (role) => {
-        setValue('roles', [...roles, role], { shouldValidate: true });
-    };
-
-    const handleRemoveRole = (index) => {
-        const updatedRoles = roles.filter((_, i) => i !== index);
-        setValue('roles', updatedRoles, { shouldValidate: true });
-    };
-
-    const handleAddSkill = (skill) => {
-        setValue('skills', [...skills, skill], { shouldValidate: true });
-    };
-
-    const handleRemoveSkill = (index) => {
-        const updatedSkills = skills.filter((_, i) => i !== index);
-        setValue('skills', updatedSkills, { shouldValidate: true });
-    };
-
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log('Job Description Data:', data);
-        // TODO: Save to localStorage or send to API
-        localStorage.setItem('jobDescription', JSON.stringify(data));
-        toast.success('Job description saved successfully!');
-        closeModal();
+        try {
+            // await addJob(data);
+            toast.success('Job description saved successfully!');
+            closeModal();
+            // Optional: fallback to localStorage if needed or as cache
+            localStorage.setItem('jobDescription', JSON.stringify(data));
+        } catch (error) {
+            console.error("Failed to add job description:", error);
+            toast.error("Failed to add job description.");
+        }
     };
 
     const onError = (errors) => {
@@ -65,7 +52,7 @@ export default function AddJobDescriptionForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-6">
+        <form id="add-job-description-form" onSubmit={handleSubmit(onSubmit, onError)} className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto">
             {/* Job Title */}
             <InputProvider
                 type="text"
@@ -86,13 +73,13 @@ export default function AddJobDescriptionForm() {
             <Controller
                 name="roles"
                 control={control}
-                render={() => (
+                render={({ field: { onChange, value } }) => (
                     <ArrayInput
                         label="Roles & Responsibilities"
                         placeholder="Describe a key responsibility..."
-                        items={roles}
-                        onAdd={handleAddRole}
-                        onRemove={handleRemoveRole}
+                        items={value || []}
+                        onAdd={(newItem) => onChange([...(value || []), newItem])}
+                        onRemove={(index) => onChange((value || []).filter((_, i) => i !== index))}
                         error={errors.roles?.message}
                         required={true}
                         inputType="textarea"
@@ -105,13 +92,13 @@ export default function AddJobDescriptionForm() {
             <Controller
                 name="skills"
                 control={control}
-                render={() => (
+                render={({ field: { onChange, value } }) => (
                     <ArrayInput
                         label="Skills Required"
                         placeholder="e.g., React, Node.js, Python"
-                        items={skills}
-                        onAdd={handleAddSkill}
-                        onRemove={handleRemoveSkill}
+                        items={value || []}
+                        onAdd={(newItem) => onChange([...(value || []), newItem])}
+                        onRemove={(index) => onChange((value || []).filter((_, i) => i !== index))}
                         error={errors.skills?.message}
                         required={true}
                         inputType="text"
@@ -152,23 +139,6 @@ export default function AddJobDescriptionForm() {
                     <Input.Error />
                 </div>
             </InputProvider>
-
-            {/* Form Actions */}
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                <button
-                    type="button"
-                    onClick={closeModal}
-                    className="px-6 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1"
-                >
-                    Cancel
-                </button>
-                <button
-                    type="submit"
-                    className="px-6 py-2 bg-[#5ce1e6] text-white font-semibold rounded-lg shadow-md hover:bg-[#4bc8cd] transition-colors focus:outline-none focus:ring-2 focus:ring-[#5ce1e6] focus:ring-offset-1"
-                >
-                    Save Job Description
-                </button>
-            </div>
         </form>
     );
 }

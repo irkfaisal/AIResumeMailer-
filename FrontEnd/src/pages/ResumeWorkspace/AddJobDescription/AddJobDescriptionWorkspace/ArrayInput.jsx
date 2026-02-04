@@ -79,6 +79,7 @@ export default function ArrayInput({
                                     onKeyPress={handleKeyPress}
                                     placeholder={placeholder}
                                     rows={inputType === 'textarea' ? 3 : undefined}
+                                    required={false}
                                 />
                             </div>
                             <button
@@ -89,7 +90,7 @@ export default function ArrayInput({
                                 Add
                             </button>
                         </div>
-                        {helperText && !inputError && !error && (
+                        {helperText && !inputError && (
                             <p className="text-xs text-gray-500">{helperText}</p>
                         )}
                         <Input.Error />
@@ -140,6 +141,7 @@ export default function ArrayInput({
                     </p>
                 </div>
             )}
+
         </div>
     );
 }
