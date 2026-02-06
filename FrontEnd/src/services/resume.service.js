@@ -11,3 +11,7 @@ export const getResumeDetails = () => {
 export const addCoverLetter = (payload) => {
     return axiosInstance.post("/api/resume/cover-letter", payload);
 };
+
+export const getCoverLetter = () => {
+    return axiosInstance.get("/api/resume/cover-letter");
+};

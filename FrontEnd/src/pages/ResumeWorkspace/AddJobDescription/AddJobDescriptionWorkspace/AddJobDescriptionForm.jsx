@@ -35,7 +35,10 @@ export default function AddJobDescriptionForm() {
     const onSubmit = async (data) => {
         console.log('Job Description Data:', data);
         try {
-            // await addJob(data);
+            await addJob(data);
+            if (addJob.error) {
+                throw new Error(addJob.error);
+            }
             toast.success('Job description saved successfully!');
             closeModal();
             // Optional: fallback to localStorage if needed or as cache

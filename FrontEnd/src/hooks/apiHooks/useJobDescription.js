@@ -22,9 +22,13 @@ export const useJobDescription = () => {
     };
 
     const addJob = async (payload) => {
+        setLoading(true);
         try {
-            setLoading(true);
             const res = await addJobDescription(payload);
+            if (!res.success) {
+                setError(res.message);
+                throw new Error(res.message);
+            }
             setJobs((prev) => [res.data, ...prev]);
         } catch (err) {
             setError(err);
