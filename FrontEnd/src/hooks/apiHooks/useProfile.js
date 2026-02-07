@@ -16,9 +16,11 @@ export const useProfile = () => {
             if (!res.success) {
                 throw new Error(res.message);
             }
-            setProfile(res.profile);
+            setProfile(res.data);
+            localStorage.setItem("UserProfile", JSON.stringify(res.data));
         } catch (err) {
             setError(err);
+            localStorage.removeItem("UserProfile");
             throw new Error(err);
         } finally {
             setLoading(false);
@@ -33,8 +35,10 @@ export const useProfile = () => {
                 throw new Error(res.message);
             }
             setProfile(res.data);
+            localStorage.setItem("UserProfile", JSON.stringify(res.data));
         } catch (err) {
             setError(err);
+            localStorage.removeItem("UserProfile");
             throw new Error(err);
         } finally {
             setLoading(false);
@@ -43,6 +47,7 @@ export const useProfile = () => {
 
     return {
         profile,
+        setProfile,
         loading,
         error,
         fetchProfile,
