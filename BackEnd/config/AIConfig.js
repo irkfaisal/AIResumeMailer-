@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const getChatGPTResponse = async (prompt) => {
+export const getAIResponse = async (prompt) => {
   const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {

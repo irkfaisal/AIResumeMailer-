@@ -16,8 +16,12 @@ export const addJobDescription = asyncHandler(async (req, res) => {
         additionalNotes
     });
 
-    if (jobDescription) {
-        res.status(201).json(jobDescription);
+    if (jobDescription && jobDescription !== null) {
+        res.status(201).json({
+            success: true,
+            message: 'Job description added successfully',
+            data: jobDescription
+        });
     } else {
         res.status(400);
         throw new Error('Invalid job description data');

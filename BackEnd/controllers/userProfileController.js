@@ -22,7 +22,7 @@ export const createOrUpdateProfile = asyncHandler(async (req, res) => {
             res.status(profile.createdAt === profile.updatedAt ? 201 : 200).json({
                 success: true,
                 message: profile.createdAt === profile.updatedAt ? 'Profile created successfully' : 'Profile updated successfully',
-                profile
+                data: profile
             });
         } else {
             res.status(400);
@@ -44,7 +44,7 @@ export const getProfile = asyncHandler(async (req, res) => {
         res.status(200).json({
             success: true,
             message: 'Profile fetched successfully',
-            profile: profile
+            data: profile
         });
     } else {
         res.status(404).json({ message: 'Profile not found' });

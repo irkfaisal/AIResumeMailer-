@@ -94,10 +94,15 @@ const ProfileSection = ({ title, fields, data }) => {
 };
 
 export default function ViewProfile() {
-    const { fetchProfile, profile: profileData, loading } = useProfile();
+    const { fetchProfile, profile, loading, setProfile } = useProfile();
 
     useEffect(() => {
-        fetchProfile();
+        const storedProfile = localStorage.getItem("UserProfile");
+        if (!storedProfile) {
+            fetchProfile();
+        } else {
+            setProfile(JSON.parse(storedProfile));
+        }
     }, []);
 
     if (loading) {
@@ -110,7 +115,7 @@ export default function ViewProfile() {
         );
     }
 
-    const hasAnyData = profileData && Object.values(profileData).some(
+    const hasAnyData = profile && Object.values(profile).some(
         value => value && (typeof value !== 'string' || value.trim() !== '')
     );
 
@@ -157,13 +162,13 @@ export default function ViewProfile() {
                         <ProfileSection
                             title="Basic Details"
                             fields={profileFields.basicDetails}
-                            data={profileData}
+                            data={profile}
                         />
 
                         <ProfileSection
                             title="Job Details"
                             fields={profileFields.jobDetails}
-                            data={profileData}
+                            data={profile}
                         />
                     </aside>
 
@@ -172,7 +177,7 @@ export default function ViewProfile() {
                         <ProfileSection
                             title="Professional Details"
                             fields={profileFields.professionalDetails}
-                            data={profileData}
+                            data={profile}
                         />
                     </section>
 

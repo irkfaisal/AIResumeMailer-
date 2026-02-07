@@ -24,12 +24,14 @@ export const uploadResume = asyncHandler(async (req, res) => {
         if (resume && resume !== null) {
             res.status(200).json({
                 success: true,
-                message: "Resume saved successfully"
+                message: "Resume saved successfully",
+                data: resume
             });
         } else {
             res.status(404).json({
                 success: false,
-                message: "Resume not found"
+                message: "Resume not found",
+                data: null
             });
         }
 
@@ -55,10 +57,18 @@ export const uploadResume = asyncHandler(async (req, res) => {
 export const getResume = asyncHandler(async (req, res) => {
     const resume = await Resume.findOne({ userId: req.user._id });
 
-    if (resume) {
-        res.json(resume);
+    if (resume && resume !== null) {
+        res.status(200).json({
+            success: true,
+            message: "Resume fetched successfully",
+            data: resume
+        });
     } else {
-        res.status(404).json({ message: 'Resume not found' });
+        res.status(404).json({
+            success: false,
+            message: "Resume not found",
+            data: null
+        });
     }
 });
 
@@ -68,28 +78,62 @@ export const getResume = asyncHandler(async (req, res) => {
 export const addCoverLetter = asyncHandler(async (req, res) => {
     const { coverLetter, coverLetterStoredName } = req.body;
 
-    const resume = await Resume.findOneAndUpdate(
-        { userId: req.user._id },
-        {
-            userId: req.user._id,
-            coverLetter,
-            coverLetterStoredName
-        },
-        { new: true, upsert: true, runValidators: true }
-    );
+    try {
+        const coverLtFile = await Resume.findOneAndUpdate(
+            { userId: req.user._id },
+            {
+                userId: req.user._id,
+                coverLetter,
+                coverLetterStoredName
+            },
+            { new: true, upsert: true, runValidators: true }
+        );
 
-    res.status(200).json(resume);
+        if (coverLtFile && coverLtFile !== null) {
+            res.status(200).json({
+                success: true,
+                message: "Cover letter saved successfully",
+                data: coverLtFile
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: "Cover letter not found",
+                data: null
+            });
+        }
+    } catch (error) {
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
 });
 
 // @desc    Get cover letter
 // @route   GET /api/resume/cover-letter
 // @access  Private
 export const getCoverLetter = asyncHandler(async (req, res) => {
-    const resume = await Resume.findOne({ userId: req.user._id }).select('coverLetter coverLetterStoredName');
+    const coverLetter = await Resume.findOne({ userId: req.user._id });
 
-    if (resume) {
-        res.json(resume);
+    if (coverLetter && coverLetter !== null) {
+        res.status(200).json({
+            success: true,
+            message: "Cover letter fetched successfully",
+            data: coverLetter
+        });
     } else {
-        res.status(404).json({ message: 'Cover letter details not found' });
+        res.status(404).json({
+            success: false,
+            message: "Cover letter not found",
+            data: null
+        });
     }
 });

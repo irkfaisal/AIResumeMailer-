@@ -1,3 +1,5 @@
+import Loader from "../Loader/Loader";
+
 const FileUploadCard = ({
     title,
     uploadLabel,
@@ -8,13 +10,16 @@ const FileUploadCard = ({
     loading,
     inputId
 }) => {
+
+    if (loading) return <Loader />;
+
     return (
         <div className="bg-white p-4 rounded-lg border shadow-sm">
             <h2 className="text-lg font-semibold mb-4 text-gray-800 border-b pb-2">
                 {title}
             </h2>
 
-            {previouslyUploaded?.name && (
+            {previouslyUploaded?.originalName && (
                 <div className="mb-6 p-3 bg-gray-50 rounded-md border">
                     <p className="text-sm font-medium text-gray-700 mb-1">
                         Previously Uploaded
@@ -22,11 +27,11 @@ const FileUploadCard = ({
                     <div className="flex justify-between text-sm text-gray-600">
                         <span
                             className="text-blue-600 truncate max-w-[160px]"
-                            title={previouslyUploaded.name}
+                            title={previouslyUploaded.originalName}
                         >
-                            📄 {previouslyUploaded.name}
+                            📄 {previouslyUploaded.originalName}
                         </span>
-                        <span>{previouslyUploaded.date}</span>
+                        <span>{new Date(previouslyUploaded.updatedAt).toLocaleDateString()}</span>
                     </div>
                 </div>
             )}

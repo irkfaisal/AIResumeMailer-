@@ -2,6 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 import styles from '../../styles/styles';
 import AddJobDescription from './AddJobDescription/AddJobDescription';
 import ResumeWorkspaceActions from './ResumeWorkspaceActions/ResumeWorkspaceActions';
+import GeneratePrompt from './GeneratePrompt/GeneratePrompt';
 import Loader from '../../components/Loader/Loader';
 
 const MailTextEditor = lazy(() => import("./MailTextEditor/MailTextEditor"));
@@ -19,11 +20,14 @@ export default function ResumeWorkspace() {
                 <ResumeWorkspaceActions />
 
                 {/* Job Description Card - Centered below the 3-card grid */}
-                <div className="mt-12 flex justify-center">
+                <div className="mt-12 flex justify-center flex-col items-center">
                     <div className="w-full md:w-1/3">
                         <AddJobDescription />
                     </div>
                 </div>
+
+                <GeneratePrompt />
+
                 <Suspense fallback={<Loader />}>  {/* <EditorSkeleton /> in future */}
                     <div className='mt-12 flex justify-center'>
                         <div className='w-full md:w-1/3'>

@@ -1,4 +1,4 @@
-import { getChatGPTResponse } from "../config/chatgptConfig.js";
+import { getAIResponse } from "../config/AIConfig.js";
 
 export const generateAIResponse = async (req, res) => {
   const candidateDetails  = req.body;
@@ -10,7 +10,7 @@ export const generateAIResponse = async (req, res) => {
 
   const prompt = `Generate a professional email for a job application using the following details: ${JSON.stringify(candidateDetails.question)}`;
    console.log("promt", prompt)
-  const response = await getChatGPTResponse(prompt);
+  const response = await getAIResponse(prompt);
 
   if (response.success) {
     return res.status(200).json({ emailText: response.data });
