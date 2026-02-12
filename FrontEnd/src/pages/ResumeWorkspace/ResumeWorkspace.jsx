@@ -4,11 +4,25 @@ import AddJobDescription from './AddJobDescription/AddJobDescription';
 import ResumeWorkspaceActions from './ResumeWorkspaceActions/ResumeWorkspaceActions';
 import Loader from '../../components/Loader/Loader';
 import GenerateText from './GeneratePrompt/GenerateText';
+import { useGenTextStream } from '../../hooks/apiHooks/useGenTextStream';
 
 const MailTextEditor = lazy(() => import("./MailTextEditor/MailTextEditor"));
 
 export default function ResumeWorkspace() {
     const [emailBody, setEmailBody] = useState('');
+    const { genTextStream, loading, createPayload } = useGenTextStream();
+
+    const handleGenerate = async () => {
+        const payload = createPayload();
+        if (!payload) return;
+
+        let fullText = '';
+        setEmailBody(''); // Clear previous content
+        await genTextStream(payload, (chunk) => {
+            fullText += chunk;
+            setEmailBody(fullText.replace(/\n/g, '<br>'));
+        });
+    };
 
     return (
         <div className={`gradient__bg w-screen min-h-screen overflow-y-auto overflow-x-hidden ${styles.flexStart} flex-col`}>
@@ -26,7 +40,7 @@ export default function ResumeWorkspace() {
                     </div>
                 </div>
 
-                <GenerateText />
+                <GenerateText loading={loading} onGenerate={handleGenerate} />
 
                 <Suspense fallback={<Loader />}>  {/* <EditorSkeleton /> in future */}
                     <div className='mt-12 flex justify-center'>
