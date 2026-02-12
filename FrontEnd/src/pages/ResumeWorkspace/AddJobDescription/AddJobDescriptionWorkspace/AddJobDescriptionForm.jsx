@@ -8,9 +8,11 @@ import { InputProvider } from '../../../../context/InputProvider';
 import { Input } from '../../../../components/Input/Input';
 import { useModal } from '../../../../hooks/useModal';
 import { useJobDescription } from '../../../../hooks/apiHooks/useJobDescription';
+import { useEffect } from 'react';
+import Loader from '../../../../components/Loader/Loader';
 
 export default function AddJobDescriptionForm() {
-    const { addJob } = useJobDescription();
+    const { addJob, loading, jobs, setJobs, fetchJobs } = useJobDescription();
     const { closeModal } = useModal();
 
     const {
@@ -32,8 +34,35 @@ export default function AddJobDescriptionForm() {
         },
     });
 
+    useEffect(() => {
+        const storedJobs = localStorage.getItem('JobDescription');
+        if (storedJobs) {
+            try {
+                const parsedJobs = JSON.parse(storedJobs);
+                if (Array.isArray(parsedJobs) && parsedJobs.length > 0) {
+                    setJobs(parsedJobs);
+                    return;
+                }
+            } catch (error) {
+                console.error("Error parsing local storage:", error);
+                localStorage.removeItem('JobDescription');
+            }
+        }
+        // fetchJobs()
+    }, []);
+
+    useEffect(() => {
+        if (jobs && jobs.length > 0) {
+            const latestJob = jobs[0];
+            setValue('jobTitle', latestJob.jobTitle || '');
+            setValue('roles', latestJob.roles || []);
+            setValue('skills', latestJob.skills || []);
+            setValue('noticePeriod', latestJob.noticePeriod || '');
+            setValue('additionalNotes', latestJob.additionalNotes || '');
+        }
+    }, [jobs, setValue]);
+
     const onSubmit = async (data) => {
-        console.log('Job Description Data:', data);
         try {
             await addJob(data);
             if (addJob.error) {
@@ -53,6 +82,10 @@ export default function AddJobDescriptionForm() {
         console.error('Form validation errors:', errors);
         toast.error('Please fix the validation errors before submitting.');
     };
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <form id="add-job-description-form" onSubmit={handleSubmit(onSubmit, onError)} className="space-y-6 max-h-[calc(100vh-200px)] overflow-y-auto">

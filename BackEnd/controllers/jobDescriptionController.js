@@ -23,8 +23,10 @@ export const addJobDescription = asyncHandler(async (req, res) => {
             data: jobDescription
         });
     } else {
-        res.status(400);
-        throw new Error('Invalid job description data');
+        res.status(400).json({
+            success: false,
+            message: 'something went wrong'
+        });
     }
 });
 
@@ -35,5 +37,9 @@ export const getJobDescriptions = asyncHandler(async (req, res) => {
     const jobDescriptions = await JobDescription.find({ userId: req.user._id })
         .sort({ createdAt: -1 });
 
-    res.json(jobDescriptions);
+    res.status(200).json({
+        success: true,
+        message: 'Job descriptions fetched successfully',
+        data: jobDescriptions
+    });
 });

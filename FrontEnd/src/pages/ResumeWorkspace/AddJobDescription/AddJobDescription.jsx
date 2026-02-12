@@ -16,6 +16,9 @@ export default function AddJobDescription() {
         openModal(JOB_DESCRIPTION_MODAL);
     };
 
+    const JobStored = localStorage.getItem('JobDescription');
+
+
     const isJobDescriptionModal = modalState.type === JOB_DESCRIPTION_MODAL && modalState.isOpen;
 
     return (
@@ -63,10 +66,20 @@ export default function AddJobDescription() {
                             <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
                                 <button
                                     type="button"
-                                    onClick={closeModal}
+                                    onClick={closeModal} disabled={JobStored ? false : true}
                                     className="px-6 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1"
                                 >
                                     Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        localStorage.removeItem('JobDescription');
+                                        window.location.reload();
+                                    }}
+                                    className="px-6 py-2 border border-red-300 text-red-700 font-semibold rounded-lg hover:bg-red-50 transition-colors focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-1"
+                                >
+                                    Clear Storage
                                 </button>
                                 <button
                                     type="submit"

@@ -2,8 +2,8 @@ import { lazy, Suspense, useState } from 'react';
 import styles from '../../styles/styles';
 import AddJobDescription from './AddJobDescription/AddJobDescription';
 import ResumeWorkspaceActions from './ResumeWorkspaceActions/ResumeWorkspaceActions';
-import GeneratePrompt from './GeneratePrompt/GeneratePrompt';
 import Loader from '../../components/Loader/Loader';
+import GenerateText from './GeneratePrompt/GenerateText';
 
 const MailTextEditor = lazy(() => import("./MailTextEditor/MailTextEditor"));
 
@@ -26,7 +26,7 @@ export default function ResumeWorkspace() {
                     </div>
                 </div>
 
-                <GeneratePrompt />
+                <GenerateText />
 
                 <Suspense fallback={<Loader />}>  {/* <EditorSkeleton /> in future */}
                     <div className='mt-12 flex justify-center'>
