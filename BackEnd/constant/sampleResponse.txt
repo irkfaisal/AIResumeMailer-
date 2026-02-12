@@ -1,0 +1,17 @@
+[SUBJECT]
+Application for Full Stack Developer Position (2+ years exp)
+
+[GREETING]
+Hi Ishita,
+
+[BODY]
+I’m writing to apply for the Full Stack Developer position at Aivot AI. With 2+ years of hands-on experience building fast, scalable, and user-focused web applications, I’m excited about the opportunity to contribute to your team and take ownership of features end-to-end.
+
+My core strength lies in frontend engineering, building high-performance and maintainable UIs with deep JavaScript knowledge.
+
+[CLOSING]
+Thank you for your time and consideration.
+
+[SIGNATURE]
+Best regards,
+Faisal
