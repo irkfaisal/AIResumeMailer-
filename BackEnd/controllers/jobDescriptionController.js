@@ -5,11 +5,13 @@ import JobDescription from '../models/JobDescription.js';
 // @route   POST /api/job-description
 // @access  Private
 export const addJobDescription = asyncHandler(async (req, res) => {
-    const { jobTitle, roles, skills, noticePeriod, additionalNotes } = req.body;
+    const { jobTitle, companyName, companyEmail, roles, skills, noticePeriod, additionalNotes } = req.body;
 
     const jobDescription = await JobDescription.create({
         userId: req.user._id,
         jobTitle,
+        companyName,
+        companyEmail,
         roles,
         skills,
         noticePeriod,

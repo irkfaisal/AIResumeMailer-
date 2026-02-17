@@ -28,6 +28,8 @@ export const generateAIResponse = async (req, res) => {
 
   const {
     jobTitle: targetRole,
+    companyName,
+    companyEmail,
     roles: jobRoles,
     skills: requiredSkills,
     noticePeriod,
@@ -35,7 +37,7 @@ export const generateAIResponse = async (req, res) => {
   } = jobDescription;
 
   const prompt = `
-    Write a professional job application email for the position of "${targetRole}".
+    Write a professional job application email for the position of "${targetRole}" at "${companyName}".
     Name: ${fullName}
     Email: ${email}
     Phone: ${phone}
@@ -48,6 +50,8 @@ export const generateAIResponse = async (req, res) => {
     Project Highlight: ${projectDescription} (Link: ${projectLink})
     Additional Info: ${additionalInfo}
     Target Role: ${targetRole}
+    Company Name: ${companyName}
+    Company Email: ${companyEmail}
     Key Responsibilities: ${Array.isArray(jobRoles) ? jobRoles.join(', ') : jobRoles}
     Required Skills: ${Array.isArray(requiredSkills) ? requiredSkills.join(', ') : requiredSkills}
     Additional Notes: ${additionalNotes}

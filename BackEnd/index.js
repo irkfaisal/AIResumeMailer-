@@ -52,7 +52,7 @@ passportConfig(passport);
 
 // Define routes
 app.use('/auth', authRoutes);
-app.use('/mail', mailRoutes)
+app.use('/api/mail', mailRoutes)
 app.use('/ai', gptRoutes)
 app.use('/api/profile', userProfileRoutes);
 app.use('/api/resume', resumeRoutes);

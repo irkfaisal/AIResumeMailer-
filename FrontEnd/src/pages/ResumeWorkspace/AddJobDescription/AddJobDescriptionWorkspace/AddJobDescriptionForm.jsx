@@ -27,6 +27,8 @@ export default function AddJobDescriptionForm() {
         mode: 'onBlur',
         defaultValues: {
             jobTitle: '',
+            companyName: '',
+            companyEmail: '',
             roles: [],
             skills: [],
             noticePeriod: '',
@@ -55,6 +57,8 @@ export default function AddJobDescriptionForm() {
         if (jobs && jobs.length > 0) {
             const latestJob = jobs[0];
             setValue('jobTitle', latestJob.jobTitle || '');
+            setValue('companyName', latestJob.companyName || '');
+            setValue('companyEmail', latestJob.companyEmail || '');
             setValue('roles', latestJob.roles || []);
             setValue('skills', latestJob.skills || []);
             setValue('noticePeriod', latestJob.noticePeriod || '');
@@ -96,10 +100,42 @@ export default function AddJobDescriptionForm() {
                 error={errors.jobTitle?.message}
             >
                 <div className="flex flex-col gap-1">
-                    <Input.Label>Job Title to Apply</Input.Label>
+                    <Input.Label>Job Title to Apply *</Input.Label>
                     <Input
                         {...register('jobTitle')}
                         placeholder="e.g., Senior Software Engineer"
+                    />
+                    <Input.Error />
+                </div>
+            </InputProvider>
+
+            {/* Company Name */}
+            <InputProvider
+                type="text"
+                required={true}
+                error={errors.companyName?.message}
+            >
+                <div className="flex flex-col gap-1">
+                    <Input.Label>Company Name *</Input.Label>
+                    <Input
+                        {...register('companyName')}
+                        placeholder="e.g., Google, Microsoft"
+                    />
+                    <Input.Error />
+                </div>
+            </InputProvider>
+
+            {/* Company Email */}
+            <InputProvider
+                type="email"
+                required={true}
+                error={errors.companyEmail?.message}
+            >
+                <div className="flex flex-col gap-1">
+                    <Input.Label>Company Email Address *</Input.Label>
+                    <Input
+                        {...register('companyEmail')}
+                        placeholder="e.g., careers@company.com"
                     />
                     <Input.Error />
                 </div>

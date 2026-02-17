@@ -13,6 +13,20 @@ const jobDescriptionSchema = new mongoose.Schema({
         minlength: [2, 'Job title must be at least 2 characters'],
         maxlength: [200, 'Job title must not exceed 200 characters']
     },
+    companyName: {
+        type: String,
+        required: [true, 'Company Name is required'],
+        minlength: [2, 'Company Name must be at least 2 characters'],
+        maxlength: [200, 'Company Name must not exceed 200 characters']
+    },
+    companyEmail: {
+        type: String,
+        required: [true, 'Company Email is required'],
+        match: [
+            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+            'Please add a valid email'
+        ]
+    },
     roles: {
         type: [{
             type: String,
