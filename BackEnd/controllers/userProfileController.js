@@ -25,12 +25,17 @@ export const createOrUpdateProfile = asyncHandler(async (req, res) => {
                 data: profile
             });
         } else {
-            res.status(400);
+            res.status(400).json({
+                success: false,
+                message: 'Operation failed'
+            });
             throw new Error('Operation failed');
         }
     } catch (error) {
-        res.status(400);
-        throw new Error('Operation failed');
+        res.status(400).json({
+            success: false,
+            message: 'Operation failed'
+        });
     }
 });
 

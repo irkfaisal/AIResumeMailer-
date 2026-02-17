@@ -8,6 +8,17 @@ export const jobDescriptionSchema = yup.object().shape({
         .min(2, 'Job title must be at least 2 characters')
         .max(200, 'Job title must not exceed 200 characters'),
 
+    companyName: yup
+        .string()
+        .required('Company Name is required')
+        .min(2, 'Company Name must be at least 2 characters')
+        .max(200, 'Company Name must not exceed 200 characters'),
+
+    companyEmail: yup
+        .string()
+        .required('Company Email is required')
+        .email('Invalid email format'),
+
     roles: yup
         .array()
         .of(

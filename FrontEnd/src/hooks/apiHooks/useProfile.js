@@ -21,7 +21,7 @@ export const useProfile = () => {
         } catch (err) {
             setError(err);
             localStorage.removeItem("UserProfile");
-            throw new Error(err);
+            throw err;
         } finally {
             setLoading(false);
         }
@@ -39,7 +39,7 @@ export const useProfile = () => {
         } catch (err) {
             setError(err);
             localStorage.removeItem("UserProfile");
-            throw new Error(err);
+            throw err;
         } finally {
             setLoading(false);
         }

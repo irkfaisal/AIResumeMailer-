@@ -1,20 +1,73 @@
-import { getAIResponse } from "../config/AIConfig.js";
+// import { getAIResponse } from "../config/AIConfig.js";
+import { streamMockMail } from "../utils/streamReader.js";
 
 export const generateAIResponse = async (req, res) => {
-  const candidateDetails  = req.body;
-  console.log(candidateDetails, "candidateDetails")
+  const { profile, jobDescription } = req.body;
 
-  if (!candidateDetails) {
-    return res.status(400).json({ error: 'Candidate details are missing' });
+  if (!profile || !jobDescription) {
+    return res.status(400).json({
+      error: 'User details are missing',
+      message: 'User details are missing'
+    });
   }
 
-  const prompt = `Generate a professional email for a job application using the following details: ${JSON.stringify(candidateDetails.question)}`;
-   console.log("promt", prompt)
-  const response = await getAIResponse(prompt);
+  const {
+    fullName,
+    email,
+    phone,
+    linkedinLink,
+    portfolioLink,
+    jobTitle: currentRole,
+    yearsOfExperience,
+    skills: mySkills,
+    professionalSummary,
+    projectDescription,
+    projectLink,
+    additionalInfo
+  } = profile;
 
-  if (response.success) {
-    return res.status(200).json({ emailText: response.data });
-  } else {
-    return res.status(500).json({ error: `Failed to generate email text: ${response.error}` });
+  const {
+    jobTitle: targetRole,
+    companyName,
+    companyEmail,
+    roles: jobRoles,
+    skills: requiredSkills,
+    noticePeriod,
+    additionalNotes
+  } = jobDescription;
+
+  const prompt = `
+    Write a professional job application email for the position of "${targetRole}" at "${companyName}".
+    Name: ${fullName}
+    Email: ${email}
+    Phone: ${phone}
+    LinkedIn: ${linkedinLink}
+    Portfolio: ${portfolioLink}
+    Current Role: ${currentRole}
+    Experience: ${yearsOfExperience} years
+    Skills: ${mySkills}
+    Professional Summary: ${professionalSummary}
+    Project Highlight: ${projectDescription} (Link: ${projectLink})
+    Additional Info: ${additionalInfo}
+    Target Role: ${targetRole}
+    Company Name: ${companyName}
+    Company Email: ${companyEmail}
+    Key Responsibilities: ${Array.isArray(jobRoles) ? jobRoles.join(', ') : jobRoles}
+    Required Skills: ${Array.isArray(requiredSkills) ? requiredSkills.join(', ') : requiredSkills}
+    Additional Notes: ${additionalNotes}
+    Notice Period: ${noticePeriod}
+  `;
+
+  try {
+
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    await streamMockMail(res);
+
+  } catch (err) {
+    console.error(err);
+    res.end();
   }
 };
+

@@ -9,6 +9,8 @@ import JobDetails from "./AddProfileTabComponents/JobDetails";
 import ProfessionalDetails from "./AddProfileTabComponents/ProfessionalDetails";
 import { addProfileSchema } from "./validationSchemas";
 import { useProfile } from "../../../../../hooks/apiHooks/useProfile";
+import Loader from "../../../../../components/Loader/Loader";
+import { useEffect } from "react";
 
 const NavigationControls = ({ isSubmitting }) => {
     const { activeTab, setActiveTab } = useTab();
@@ -58,10 +60,20 @@ const NavigationControls = ({ isSubmitting }) => {
 };
 
 export default function AddProfile() {
-    const { saveProfile, loading } = useProfile();
+    const { saveProfile, loading, profile, setProfile, fetchProfile } = useProfile();
+
+    useEffect(() => {
+        const profileData = localStorage.getItem("UserProfile");
+        if (!profileData) {
+            fetchProfile()
+        } else {
+            setProfile(JSON.parse(profileData));
+        }
+    }, []);
+
     const methods = useForm({
         resolver: yupResolver(addProfileSchema),
-        mode: 'onBlur', // Validate on blur for better UX
+        mode: 'onBlur',
         defaultValues: {
             fullName: '',
             email: '',
@@ -84,14 +96,17 @@ export default function AddProfile() {
         },
     });
 
+    useEffect(() => {
+        if (profile) {
+            methods.reset(profile);
+        }
+    }, [profile, methods]);
+
     const onSubmit = async (data) => {
-        console.log('Form submitted successfully:', data);
         try {
             await saveProfile(data);
-            console.log('Profile created successfully!', data);
             toast.success('Profile created successfully!');
         } catch (error) {
-            console.error('Profile creation failed:', error);
             toast.error('Failed to create profile.');
         }
     };
@@ -100,6 +115,10 @@ export default function AddProfile() {
         console.error('Form validation errors:', errors);
         toast.error('Please fix the validation errors before submitting.');
     };
+
+    if (loading) {
+        return <Loader />
+    }
 
     return (
         <FormProvider {...methods}>
