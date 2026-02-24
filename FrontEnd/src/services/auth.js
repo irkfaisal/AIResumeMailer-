@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: 'https://airesumemailer.onrender.com' || 'https://ai-resume-mailer.irkfaisal.com',
+    baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true
 });
 
