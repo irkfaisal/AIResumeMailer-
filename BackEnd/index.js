@@ -25,9 +25,22 @@ app.use(express.json());
 // Enable trust proxy for Nginx/Vercel
 app.set("trust proxy", 1);
 
+// Allowed origins: localhost (dev) + production URL
+const allowedOrigins = [
+  process.env.CLIENT_URL,        // e.g. http://localhost:5173
+  process.env.CLIENT_URL_PROD,   // e.g. https://your-app.vercel.app
+].filter(Boolean); // removes undefined entries
+
 // Middleware for CORS (allowing cross-origin requests)
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. curl, mobile apps, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS: origin '${origin}' not allowed`));
+  },
   credentials: true,
   methods: "GET,POST,PUT,DELETE",
   allowedHeaders: "Content-Type,Authorization"
@@ -76,5 +89,5 @@ app.use((err, req, res, next) => {
 connectDB();
 
 // Start the server
-const PORT = process.env.PORT || 8400;
+const PORT = process.env.PORT || 8500;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

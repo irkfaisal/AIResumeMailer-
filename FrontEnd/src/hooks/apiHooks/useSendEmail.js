@@ -11,7 +11,7 @@ export const useSendEmail = () => {
         setError(null);
 
         try {
-            const response = await axios.post('http://localhost:8500/api/mail/send-email', {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/mail/send-email`, {
                 to,
                 subject,
                 html

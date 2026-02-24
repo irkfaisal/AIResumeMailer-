@@ -8,7 +8,7 @@ export const sendMailPost = createAsyncThunk(
     async (mailData, { rejectWithValue }) => {
         console.log("postData", mailData)
         try {
-            const response = await axios.post('http://localhost:8400/api/send-email', mailData);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/send-email`, mailData);
             console.log("send-email response", response)
             return response.data;
         } catch (error) {

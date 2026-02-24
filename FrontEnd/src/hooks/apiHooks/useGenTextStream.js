@@ -23,7 +23,7 @@ export const useGenTextStream = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("http://localhost:8500/ai/get-ai-response", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/ai/get-ai-response`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
