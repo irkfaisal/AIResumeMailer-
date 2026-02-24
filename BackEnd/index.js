@@ -22,6 +22,9 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Enable trust proxy for Nginx/Vercel
+app.set("trust proxy", 1);
+
 // Middleware for CORS (allowing cross-origin requests)
 app.use(cors({
   origin: process.env.CLIENT_URL,
@@ -36,9 +39,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to false for local http development
+    secure: process.env.NODE_ENV === "production", // Set to true for production HTTPS
     httpOnly: true,
-    sameSite: 'lax',
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
