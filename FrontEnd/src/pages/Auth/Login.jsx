@@ -12,7 +12,7 @@ export default function Login() {
     const handleGoogleLogin = () => {
         // Add Google SSO login functionality here
         console.log('Initiating Google SSO login...');
-        window.location.href = 'http://localhost:8500/auth/google';
+        window.location.href = import.meta.env.VITE_API_URL + '/auth/google';
     };
 
     return (
