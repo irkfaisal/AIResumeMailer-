@@ -27,13 +27,19 @@ app.set("trust proxy", 1);
 
 // Allowed origins: localhost (dev) + production URL
 const allowedOrigins = [
-  process.env.CLIENT_URL,        // e.g. http://localhost:5173
-  process.env.CLIENT_URL_PROD,   // e.g. https://your-app.vercel.app
-].filter(Boolean); // removes undefined entries
+  process.env.CLIENT_URL,
+  process.env.CLIENT_URL_PROD,
+].filter(Boolean);
 
 // Middleware for CORS (allowing cross-origin requests)
 app.use(cors({
   origin: (origin, callback) => {
+    // Diagnostic logging for production CORS issues
+    if (process.env.NODE_ENV === "production") {
+      console.log(`CORS Debug - Incoming Origin: ${origin}`);
+      console.log(`CORS Debug - Allowed Origins: ${JSON.stringify(allowedOrigins)}`);
+    }
+
     // Allow requests with no origin (e.g. curl, mobile apps, server-to-server)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
