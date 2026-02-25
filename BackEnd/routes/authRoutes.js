@@ -21,7 +21,10 @@ router.get('/google',
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
-        res.redirect(process.env.CLIENT_URL);
+        const redirectUrl = process.env.NODE_ENV === 'production'
+            ? process.env.CLIENT_URL_PROD
+            : process.env.CLIENT_URL;
+        res.redirect(redirectUrl);
     }
 );
 
@@ -53,7 +56,10 @@ router.get('/current_user', (req, res) => {
 router.get('/logout', (req, res) => {
     req.logout((err) => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
-        res.redirect(process.env.CLIENT_URL);
+        const redirectUrl = process.env.NODE_ENV === 'production'
+            ? process.env.CLIENT_URL_PROD
+            : process.env.CLIENT_URL;
+        res.redirect(redirectUrl);
     });
 });
 
