@@ -10,6 +10,8 @@ const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('./pages/Auth/Login'));
 const About = lazy(() => import('./pages/Others/About'));
 const ContactUs = lazy(() => import('./pages/Others/ContactUs'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const ResumeWorkspace = lazy(() => import('./pages/ResumeWorkspace/ResumeWorkspace'));
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/about' element={<About />} />
             <Route path='/contact' element={<ContactUs />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/terms-of-service' element={<TermsOfService />} />
             <Route element={<ProtectedRoute />}>
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/resume-workspace' element={<ResumeWorkspace />} />

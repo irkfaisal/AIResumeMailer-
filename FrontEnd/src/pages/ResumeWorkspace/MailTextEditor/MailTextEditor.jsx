@@ -67,26 +67,27 @@ export default function MailTextEditor({ value, onChange, placeholder }) {
     ];
 
     return (
-        <div className="flex flex-col gap-4">
-            <div className="mail-text-editor-container bg-white rounded-lg shadow-sm border border-gray-200">
-                <ReactQuill
-                    theme="snow"
-                    value={value}
-                    onChange={onChange}
-                    modules={modules}
-                    formats={formats}
-                    placeholder={placeholder || "Compose your email..."}
-                    className="bg-white"
-                />
-            </div>
-
-            <div className="flex justify-end">
-                <button
-                    onClick={handleSendClick}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center gap-2"
-                >
-                    Send Email
-                </button>
+        <div className="min-h-screen w-full flex items-center justify-center bg-slate-900 p-6">
+            <div className="w-full max-w-4xl h-[80vh] flex flex-col bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                <div className="mail-text-editor-container flex flex-col flex-1 min-h-0 overflow-hidden">
+                    <ReactQuill
+                        theme="snow"
+                        value={value}
+                        onChange={onChange}
+                        modules={modules}
+                        formats={formats}
+                        placeholder={placeholder || "Compose your email..."}
+                        className="bg-white h-full flex flex-col overflow-hidden"
+                    />
+                </div>
+                <div className="flex justify-end p-4 border-t bg-gray-50 flex-none">
+                    <button
+                        onClick={handleSendClick}
+                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                        Send Email
+                    </button>
+                </div>
             </div>
 
             {isEmailModalOpen && (

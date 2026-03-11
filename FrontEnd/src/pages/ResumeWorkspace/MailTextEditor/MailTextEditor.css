@@ -2,6 +2,31 @@
 
 /* Custom styling to mimic Gmail's clean look */
 
+.mail-text-editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mail-text-editor-container .ql-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.ql-editor {
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.mail-text-editor-container .ql-editor {
+    min-height: 300px;
+}
+
+
+.mail-text-editor-container .ql-toolbar {
+    padding: 10px 12px;
+}
+
 .mail-text-editor-container .ql-toolbar.ql-snow {
     border: none;
     border-bottom: 1px solid #f0f0f0;
@@ -12,7 +37,8 @@
 
 .mail-text-editor-container .ql-container.ql-snow {
     border: none;
-    font-family: 'Roboto', sans-serif; /* Gmail-like font */
+    font-family: 'Roboto', sans-serif;
+    /* Gmail-like font */
     font-size: 14px;
     height: 100%;
 }
@@ -36,13 +62,14 @@
 
 /* Toolbar button adjustments */
 .ql-snow .ql-toolbar button:hover,
-.ql-snow .ql-toolbar button:focus, 
-.ql-snow .ql-toolbar button.ql-active, 
-.ql-snow .ql-toolbar .ql-picker-label:hover, 
-.ql-snow .ql-toolbar .ql-picker-label.ql-active, 
-.ql-snow .ql-toolbar .ql-picker-item:hover, 
+.ql-snow .ql-toolbar button:focus,
+.ql-snow .ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active,
+.ql-snow .ql-toolbar .ql-picker-item:hover,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-    color: #1a73e8; /* Google Blue */
+    color: #1a73e8;
+    /* Google Blue */
 }
 
 .ql-snow .ql-toolbar button.ql-active .ql-stroke,
