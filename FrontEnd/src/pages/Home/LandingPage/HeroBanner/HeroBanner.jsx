@@ -6,6 +6,7 @@ const HeroBanner = () => {
         <>
             <div className={`w-full h-screen ${styles.flexCenter}`} >
                 <div className={`heroBanner-content w-1/2 text-start`}>
+                    <h1 className="text-white text-nowrap">AiResumeMailer</h1>
                     <h1 className='gradient__text text-nowrap'>Automate your Job apply with AI</h1>
                     <p>Save time, apply smarter and get hired faster.</p>
                     <p>Use AI to create tailored emails for recruiters in just a few clicks.</p>
