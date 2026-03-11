@@ -24,7 +24,8 @@
     "mongoose": "^8.21.0",
     "openai": "^4.63.0",
     "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "sarvamai": "^1.1.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

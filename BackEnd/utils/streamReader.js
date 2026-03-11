@@ -30,3 +30,25 @@ export const streamMockMail = async (res) => {
 
     }, 35);
 };
+
+export const streamActualResponse = (res, text) => {
+    const chunks = text.split(" ");
+    let index = 0;
+
+    const interval = setInterval(() => {
+        if (index >= chunks.length) {
+            res.write(`data: ${JSON.stringify({ type: "response.completed" })}\n\n`);
+            res.end();
+            clearInterval(interval);
+            return;
+        }
+
+        const event = {
+            type: "response.output_text.delta",
+            delta: chunks[index] + " "
+        };
+
+        res.write(`data: ${JSON.stringify(event)}\n\n`);
+        index++;
+    }, 35);
+};

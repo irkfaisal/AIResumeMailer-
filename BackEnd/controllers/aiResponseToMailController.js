@@ -1,5 +1,6 @@
 // import { getAIResponse } from "../config/AIConfig.js";
-import { streamMockMail } from "../utils/streamReader.js";
+import { streamMockMail, streamActualResponse } from "../utils/streamReader.js";
+import { getAIResponse } from "../config/AIConfig.js";
 
 export const generateAIResponse = async (req, res) => {
   const { profile, jobDescription } = req.body;
@@ -58,15 +59,26 @@ export const generateAIResponse = async (req, res) => {
     Notice Period: ${noticePeriod}
   `;
 
+  const result = await getAIResponse(prompt);
+
   try {
+
+    if (!result || !result.success || !result.data) {
+      throw new Error("Invalid response format from AI");
+    }
 
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
-    await streamMockMail(res);
+
+    // We stream the actual text using the response object and the result data
+    // Optionally remove '<think>...</think>' tags if your model generates reasoning blocks
+    const responseText = result.data.replace(/<think>[\s\S]*?(<\/think>|$)/i, '').trim() || result.data;
+    streamActualResponse(res, responseText);
 
   } catch (err) {
     console.error(err);
+    res.status(500).json({ error: "Failed to stream the AI response" });
     res.end();
   }
 };
