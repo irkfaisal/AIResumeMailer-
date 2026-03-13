@@ -62,8 +62,13 @@ router.get('/logout', (req, res) => {
             if (err) {
                 console.error('Session destruction failed during logout:', err);
             }
-            // Clear the session cookie
-            res.clearCookie('connect.sid'); 
+            // Clear the session cookie with production-specific attributes if needed
+            res.clearCookie('connect.sid', {
+                path: '/',
+                secure: process.env.NODE_ENV === "production",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+                httpOnly: true
+            }); 
             res.status(200).json({ message: 'Logged out successfully' });
         });
     });

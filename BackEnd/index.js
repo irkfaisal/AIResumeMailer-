@@ -43,7 +43,12 @@ app.use(cors({
 
     // Allow requests with no origin (e.g. curl, mobile apps, server-to-server)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+
+    // Normalize origin to remove trailing slash for comparison
+    const normalizedOrigin = origin.replace(/\/$/, "");
+    const normalizedAllowedOrigins = allowedOrigins.map(o => o.replace(/\/$/, ""));
+
+    if (normalizedAllowedOrigins.includes(normalizedOrigin)) {
       return callback(null, true);
     }
     return callback(new Error(`CORS: origin '${origin}' not allowed`));
