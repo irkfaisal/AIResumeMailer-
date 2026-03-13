@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../../context/auth.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePopup = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
     const { user, logout, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -27,6 +29,7 @@ const ProfilePopup = () => {
     const handleLogout = async () => {
         await logout();
         setIsOpen(false);
+        navigate('/login');
     };
 
     // Don't render if user is not authenticated
