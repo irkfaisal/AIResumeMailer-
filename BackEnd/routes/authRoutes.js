@@ -56,10 +56,16 @@ router.get('/current_user', (req, res) => {
 router.get('/logout', (req, res) => {
     req.logout((err) => {
         if (err) return res.status(500).json({ error: 'Logout failed' });
-        const redirectUrl = process.env.NODE_ENV === 'production'
-            ? process.env.CLIENT_URL_PROD
-            : process.env.CLIENT_URL;
-        res.redirect(redirectUrl);
+        
+        // Explicitly destroy session
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Session destruction failed during logout:', err);
+            }
+            // Clear the session cookie
+            res.clearCookie('connect.sid'); 
+            res.status(200).json({ message: 'Logged out successfully' });
+        });
     });
 });
 
