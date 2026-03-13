@@ -11,6 +11,7 @@ import passportConfig from "./config/passportConfig.js";
 import userProfileRoutes from './routes/userProfileRoutes.js';
 import resumeRoutes from './routes/resumeRoutes.js';
 import jobDescriptionRoutes from './routes/jobDescriptionRoutes.js';
+import { startKeepAlive } from './utils/keepAlive.js';
 
 console.log(process.cwd());
 
@@ -80,6 +81,10 @@ app.use('/api/profile', userProfileRoutes);
 app.use('/api/resume', resumeRoutes);
 app.use('/api/job-description', jobDescriptionRoutes);
 
+// Health check endpoint for keep-alive
+app.get('/api/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
 // Error handling middleware (ensure this is after the routes)
 app.use((err, req, res, next) => {
@@ -96,4 +101,7 @@ connectDB();
 
 // Start the server
 const PORT = process.env.PORT || 8500;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  startKeepAlive();
+});
